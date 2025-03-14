@@ -1,0 +1,6 @@
+{
+  "JobName": "execute-query-glue-job-SM",
+  "Arguments": {
+    "--json_input.$": "States.JsonToString($[0])"
+  }
+}

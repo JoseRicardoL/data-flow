@@ -1,0 +1,111 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AWS Glue Job for Oracle Data Extraction and Query Execution'
+
+Parameters:
+  S3Bucket:
+    Type: String
+    Description: S3 Bucket for scripts and data
+    Default: mado-gtfs-dev-eu-west-1-992807582431-bronze
+  S3BUCKETArtifactory:
+    Type: String
+    Description: S3 Bucket for artifactory resources
+    Default: mado-gtfs-dev-eu-west-1-992807582431-artifactory
+  GlueJobName:
+    Type: String
+  Environment:
+    Type: String
+  ScriptLocation:
+    Type: String
+  WorkerType:
+    Type: String
+  NumberOfWorkers:
+    Type: String
+
+Resources:
+  # Trabajo Glue
+  ExecuteQueryGlue:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Ref GlueJobName
+      Role: !GetAtt ExecuteQueryGlueRole.Arn
+      DefaultArguments:
+        '--job-language': 'python'
+        '--continuous-log-logGroup': '/aws-glue/jobs/logs-dev'
+        '--enable-continuous-cloudwatch-log': 'true'
+        '--bronze_bucket': !Ref S3Bucket
+        '--additional-python-modules': 'psutil'
+      ExecutionProperty:
+        MaxConcurrentRuns: 1000
+      GlueVersion: "4.0"
+      Command:
+        Name: glueetl
+        PythonVersion: "3"
+        ScriptLocation: !Ref ScriptLocation
+      WorkerType: !Ref WorkerType
+      NumberOfWorkers: !Ref NumberOfWorkers
+      Timeout: 2880
+
+
+  # Rol IAM para el trabajo Glue
+  ExecuteQueryGlueRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Policies:
+        - PolicyName: GlueS3ExecutionPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+              Resource:
+                - !Sub 'arn:aws:s3:::${S3BUCKETArtifactory}'
+                - !Sub 'arn:aws:s3:::${S3BUCKETArtifactory}/*'
+            - Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:ListBucket
+                - s3:PutObject
+                - s3:DeleteObject
+              Resource:
+                - !Sub 'arn:aws:s3:::${S3Bucket}'
+                - !Sub 'arn:aws:s3:::${S3Bucket}/*'
+        - PolicyName: CloudWatchLogsAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws-glue/jobs/*'
+        - PolicyName: GlueVPCAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:CreateNetworkInterface
+                  - ec2:DescribeNetworkInterfaces
+                  - ec2:DeleteNetworkInterface
+                  - ec2:DescribeVpcs
+                  - ec2:DescribeSubnets
+                  - ec2:DescribeSecurityGroups
+                Resource: '*'
+      RoleName: !Sub 'execute-query-glue-role-${Environment}'
+
+Outputs:
+  GlueJobName:
+    Description: Name of the created Glue job
+    Value: !Ref ExecuteQueryGlue

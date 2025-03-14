@@ -1,0 +1,30 @@
+services:
+  dependencies:
+    container_name: glue-dependencies
+    build:
+      context: ..
+      dockerfile: local/dependencies/dockerfile
+    volumes:
+      - ..:/workspace
+  
+  glue:
+    container_name: glue_local
+    build:
+      context: ..
+      dockerfile: local/emmulator/dockerfile
+    platform: linux/amd64
+    ports:
+      - "8888:8888"  # Jupyter Lab
+      - "4040:4040"  # Spark UI
+    volumes:
+      - ..:/workspace
+      - ../scripts:/home/glue_user/workspace/scripts
+      - ./notebooks:/home/glue_user/workspace/notebooks
+      - ./workspace:/home/glue_user/workspace/workspace
+      - ~/.aws:/home/glue_user/.aws:ro
+    environment:
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      DISABLE_SSL: "true"
+      PYTHONPATH: /home/glue_user/workspace
