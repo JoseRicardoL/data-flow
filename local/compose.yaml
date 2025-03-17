@@ -1,30 +1,67 @@
 services:
-  dependencies:
-    container_name: glue-dependencies
+  pipenv:
+    container_name: glue-pipenv
     build:
       context: ..
-      dockerfile: local/dependencies/dockerfile
+      dockerfile: local/dockerfile
+      target: builder
+    image: glue/pipenv:latest
+    command: pipenv install
     volumes:
-      - ..:/workspace
-  
+      - ./workspace:/code
+
   glue:
     container_name: glue_local
     build:
       context: ..
-      dockerfile: local/emmulator/dockerfile
+      dockerfile: local/dockerfile
+      target: runner
+    image: glue:latest
     platform: linux/amd64
     ports:
       - "8888:8888"  # Jupyter Lab
-      - "4040:4040"  # Spark UI
     volumes:
-      - ..:/workspace
-      - ../scripts:/home/glue_user/workspace/scripts
-      - ./notebooks:/home/glue_user/workspace/notebooks
-      - ./workspace:/home/glue_user/workspace/workspace
-      - ~/.aws:/home/glue_user/.aws:ro
+      - ./workspace:/code
+      - ../scripts/glue:/code/scripts
+      - ~/.aws:/code/.aws:ro
+    depends_on:
+      pipenv:
+        condition: service_completed_successfully
     environment:
-      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
-      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
-      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN:-}
       DISABLE_SSL: "true"
-      PYTHONPATH: /home/glue_user/workspace
+      PYTHONPATH: /code
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8888"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  spark-master:
+    image: bitnami/spark:3
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "7077:7077"
+      - "8080:8080"  # Spark UI
+    networks:
+      - glue-network
+
+  spark-worker:
+    image: bitnami/spark:3
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+    depends_on:
+      - spark-master
+    networks:
+      - glue-network
+
+networks:
+  glue-network:
+    driver: bridge

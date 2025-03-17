@@ -1,58 +1,41 @@
 #!/bin/bash
-set -e
+set -eo pipefail
 
-# Verificar que el archivo de utilidades de formato exista
-FORMAT_SCRIPT="$(dirname "$0")/../utils/format.sh"
-if [ ! -f "$FORMAT_SCRIPT" ]; then
-    echo "Error: No se encontró el archivo de utilidades de formato en $FORMAT_SCRIPT"
-    exit 1
-fi
-source "$FORMAT_SCRIPT"
+# Cargar funciones comunes
+source "$(dirname "$0")/../utils/common.sh"
 
 section_header "INICIALIZACIÓN DEL ENTORNO LOCAL AWS GLUE"
 
-# 1. Verificar que Docker esté instalado
-info_message "Verificando que Docker esté instalado..."
-if ! command -v docker >/dev/null 2>&1; then
-    error_message "Docker no está instalado o no está en el PATH. Instálalo y vuelve a intentar."
-    exit 1
-fi
-success_message "Docker está instalado."
+# Verificar requisitos previos
+check_prerequisites || exit 1
 
-# 2. Verificar que Docker Compose esté instalado
-info_message "Verificando que Docker Compose esté instalado..."
-if ! command -v docker-compose >/dev/null 2>&1 && ! docker compose version >/dev/null 2>&1; then
-    warning_message "Docker Compose no se encontró; asegúrate de que está instalado o utiliza 'docker compose'."
-else
-    success_message "Docker Compose está disponible."
-fi
+# Crear directorios de trabajo
+info_message "Creando directorios de trabajo..."
+mkdir -p local/workspace/{notebooks,data}
+success_message "✓ Estructura de directorios creada correctamente"
 
-# 3. Verificar y crear directorios necesarios
-info_message "Verificando directorios necesarios..."
-mkdir -p local/.devcontainer
-mkdir -p local/notebooks
-success_message "Directorios verificados."
+# Configurar permisos de ejecución para todos los scripts
+info_message "Configurando permisos de scripts..."
+find scripts -name "*.sh" -exec chmod +x {} \;
+success_message "✓ Permisos de scripts configurados"
 
-# 4. Asegurar permisos de ejecución en los scripts locales
-info_message "Asegurando permisos de ejecución en scripts locales..."
-SCRIPTS=("up.sh" "down.sh" "shell.sh" "jupyter.sh" "run.sh" "doctor.sh")
-for script in "${SCRIPTS[@]}"; do
-    SCRIPT_PATH="scripts/local/${script}"
-    if [ -f "$SCRIPT_PATH" ]; then
-        chmod +x "$SCRIPT_PATH"
-        info_message "Permisos establecidos para $SCRIPT_PATH"
-    else
-        warning_message "No se encontró el script $SCRIPT_PATH"
-    fi
-done
-
-# 5. Verificar la existencia de un archivo .env
+# Verificar archivo .env
+info_message "Verificando archivo de variables de entorno..."
 if [ ! -f .env ]; then
-    warning_message "No se encontró el archivo .env en la raíz. Verifica si es necesario para tu configuración."
+    if [ -f .env.template ]; then
+        cp .env.template .env
+        success_message "✓ Archivo .env creado desde plantilla"
+    else
+        warning_message "No se encontró .env ni .env.template"
+        echo "AWS_ACCESS_KEY_ID=" >.env
+        echo "AWS_SECRET_ACCESS_KEY=" >>.env
+        echo "AWS_SESSION_TOKEN=" >>.env
+        info_message "Se ha creado un archivo .env vacío"
+    fi
 else
-    success_message "Archivo .env encontrado."
+    success_message "✓ Archivo .env ya existe"
 fi
 
-section_header "VERIFICACIÓN COMPLETADA"
-success_message "Entorno de desarrollo local verificado correctamente"
+section_header "INICIALIZACIÓN COMPLETADA"
+success_message "✓ Entorno preparado correctamente"
 info_message "Para iniciar el entorno, ejecute: make local-up"

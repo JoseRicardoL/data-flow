@@ -1,0 +1,23 @@
+{
+  "name": "AWS Glue Development",
+  "dockerComposeFile": ["../local/compose.yaml"],
+  "service": "glue",
+  "workspaceFolder": "/home/glue_user/workspace",
+  "remoteUser": "glue_user",
+  "extensions": [
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    "ms-python.vscode-pylance",
+    "ms-azuretools.vscode-docker"
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "/home/glue_user/workspace/.venv/bin/python",
+    "jupyter.jupyterServerType": "local",
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "python.analysis.extraPaths": [ "/home/glue_user/workspace" ]
+  },
+  "postCreateCommand": "pipenv install --deploy --ignore-pipfile",
+  "shutdownAction": "stopCompose"
+}

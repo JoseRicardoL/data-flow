@@ -1,11 +1,16 @@
 #!/bin/bash
-set -e
+set -eo pipefail
 
-source "$(dirname "$0")/../utils/format.sh"
+# Cargar funciones comunes
+source "$(dirname "$0")/../utils/common.sh"
 
-section_header "CONECTANDO AL SHELL"
-info_message "Conectando al shell del contenedor AWS Glue..."
+section_header "ACCESO AL SHELL DEL CONTENEDOR"
 
-docker exec -it glue_local bash
+# Asegurar que el contenedor está en ejecución
+ensure_container_running "glue_local" "$(dirname "$0")/up.sh" || exit 1
 
-success_message "Sesión de shell finalizada"
+# Acceder al shell
+info_message "Accediendo al shell del contenedor Glue..."
+docker exec -it glue_local bash -c "cd /home/glue_user/workspace && bash"
+
+success_message "✓ Sesión de shell finalizada"

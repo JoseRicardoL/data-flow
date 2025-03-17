@@ -1,0 +1,42 @@
+# ====== Python ======
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ====== Entornos Virtuales ======
+env/
+venv/
+ENV/
+.venv/
+
+# ====== Distribución y Empaquetado ======
+build/
+dist/
+*.egg-info/
+*.egg
+pip-wheel-metadata/
+
+# ====== Jupyter ======
+.ipynb_checkpoints/
+
+# ====== Logs y Salidas Generadas ======
+*.log
+*.txt
+*.csv
+
+test/logs/
+test/output/
+
+
+# ====== Archivos de Configuración de entorno ======
+.env
+
+# ====== Archivos del Sistema ======
+.DS_Store
+Thumbs.db
+
+# ====== Archivos de Editores ======
+.vscode/
+.idea/
+*.swp
+*.swo
