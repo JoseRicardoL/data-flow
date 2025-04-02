@@ -65,12 +65,31 @@ PACKAGED_TEMPLATE="packaged-${ENV}.yaml"
 section_header "EMPAQUETANDO TEMPLATE"
 info_message "Empaquetando recursos en S3..."
 aws cloudformation package \
-    --template-file cloudformation/glue-job.yaml \
+    --template-file cloudformation/template.yaml \
     --s3-bucket ${S3_BUCKET} \
     --s3-prefix ${GLUE_SCRIPTS_PATH} \
     --output-template-file ${PACKAGED_TEMPLATE} >/dev/null
 
 show_result $? "Template empaquetado correctamente: ${PACKAGED_TEMPLATE}" "Error al empaquetar template"
+
+# Cargar los ARNs de las capas Lambda si existen
+LAYER_ARNS_FILE="layer_arns/${ENV}_layer_arns.env"
+LAYER_PARAMS=""
+
+if [ -f "$LAYER_ARNS_FILE" ]; then
+    info_message "Cargando ARNs de las capas Lambda..."
+    source "$LAYER_ARNS_FILE"
+    
+    # Construir parámetros para las capas
+    LAYER_PARAMS="PreProcessorLayerArn=${PRE_PROCESSOR_LAYER_ARN} \
+                 CheckCapacityLayerArn=${CHECK_CAPACITY_LAYER_ARN} \
+                 ReleaseCapacityLayerArn=${RELEASE_CAPACITY_LAYER_ARN} \
+                 TriggerNextLayerArn=${TRIGGER_NEXT_LAYER_ARN}"
+    
+    info_message "Parámetros de capas añadidos"
+else
+    warning_message "No se encontró el archivo de ARNs de capas. Desplegando sin parámetros de capas."
+fi
 
 # Desplegar el stack
 section_header "DESPLEGANDO STACK"
@@ -80,7 +99,7 @@ warning_message "Este proceso puede tomar varios minutos. Por favor, espere...\n
 aws cloudformation deploy \
     --template-file ${PACKAGED_TEMPLATE} \
     --stack-name ${STACK_NAME} \
-    --parameter-overrides file://cloudformation/parameters/${ENV}.json \
+    --parameter-overrides file://cloudformation/parameters/${ENV}.json ${LAYER_PARAMS} \
     --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
     --region ${REGION} \
     --no-fail-on-empty-changeset

@@ -9,7 +9,7 @@ upload:
 	./scripts/deploy/upload.sh $(LOCAL_SCRIPTS_PATH)/oracle_extraction.py $(S3_BUCKET) $(GLUE_SCRIPTS_PATH)
 
 package:
-	./scripts/deploy/package.sh $(S3_BUCKET) $(REGION)
+	./scripts/deploy/package.sh $(S3_BUCKET) $(REGION) $(ENV)
 
 deploy: upload package
 	./scripts/deploy/deploy.sh $(STACK_NAME) $(REGION) $(ENV) $(S3_BUCKET) $(GLUE_SCRIPTS_PATH)
@@ -102,7 +102,7 @@ help:
 	@echo "  make logs                    - Ver logs de ejecución"
 	@echo "  make download                - Descargar resultados"
 	@echo "  make clean                   - Limpiar recursos"
-	@echo "  make package                 - Empaquetar y subir todas las funciones Lambda"
+	@echo "  make package                 - Empaquetar y subir todas las funciones Lambda y sus capas"
 	@echo ""
 	@echo "Comandos para procesamiento GTFS por lotes:"
 	@echo "  make discover-gtfs           - Descubrir combinaciones de datos GTFS"

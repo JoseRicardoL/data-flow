@@ -1,5 +1,6 @@
 #!/bin/bash
-# Script unificado para empaquetar todas las funciones Lambda del sistema
+# Script unificado para empaquetar funciones Lambda y sus capas
+# Este archivo reemplaza la versión anterior de package.sh
 
 # Cargar utilidades de formato
 source "$(dirname "$0")/../utils/format.sh"
@@ -14,10 +15,12 @@ fi
 
 BUCKET="$1"
 REGION="$2"
+ENV="${3:-dev}"  # Ambiente para la identificación de las capas
 
 section_header "EMPAQUETADO DE FUNCIONES LAMBDA"
 info_message "Bucket: ${BUCKET}"
 info_message "Región: ${REGION}"
+info_message "Ambiente: ${ENV}"
 
 # Obtener directorio raíz del proyecto (2 niveles arriba del script)
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -44,6 +47,11 @@ LAMBDA_OUTPUT_DIR="${PROJECT_ROOT}/lambda"
 mkdir -p "${LAMBDA_OUTPUT_DIR}"
 info_message "Directorio de salida para archivos ZIP: ${LAMBDA_OUTPUT_DIR}"
 
+# Crear directorio para guardar ARNs de las capas
+mkdir -p "${PROJECT_ROOT}/layer_arns"
+LAYER_ARNS_FILE="${PROJECT_ROOT}/layer_arns/${ENV}_layer_arns.env"
+> $LAYER_ARNS_FILE  # Crear/vaciar archivo
+
 # Asegurar que el número de elementos sea el mismo
 if [ ${#LAMBDA_DIRS[@]} -ne ${#ZIP_NAMES[@]} ]; then
     error_message "Error de configuración: el número de directorios y archivos ZIP no coincide"
@@ -55,8 +63,9 @@ for i in "${!LAMBDA_DIRS[@]}"; do
     LAMBDA_DIR="${LAMBDA_DIRS[$i]}"
     ZIP_NAME="${ZIP_NAMES[$i]}"
     OUTPUT_PATH="${LAMBDA_OUTPUT_DIR}/${ZIP_NAME}"
+    FUNCTION_NAME=$(basename ${LAMBDA_DIR})
     
-    section_header "EMPAQUETANDO ${LAMBDA_DIR}"
+    section_header "EMPAQUETANDO ${FUNCTION_NAME}"
     info_message "Función: ${LAMBDA_DIR}"
     info_message "Archivo ZIP: ${OUTPUT_PATH}"
     
@@ -72,18 +81,16 @@ for i in "${!LAMBDA_DIRS[@]}"; do
         continue
     fi
     
-    # Crear directorio temporal
-    TEMP_DIR=$(mktemp -d)
-    info_message "Directorio temporal: ${TEMP_DIR}"
+    # 1. CREAR CAPA LAMBDA PARA LA FUNCIÓN
+    section_header "CREANDO CAPA PARA ${FUNCTION_NAME}"
     
-    # Copiar archivos al directorio temporal
-    cp -r ${LAMBDA_DIR}/* ${TEMP_DIR}/
-    success_message "Archivos copiados al directorio temporal"
+    LAYER_NAME="${FUNCTION_NAME}-layer-${ENV}"
+    LAYER_ZIP="${LAMBDA_OUTPUT_DIR}/${FUNCTION_NAME}_layer.zip"
     
     # Determinar dependencias según la función
-    DEPENDENCIES="boto3"
-    case "${LAMBDA_DIR}" in
-        *pre_processor*)
+    DEPENDENCIES=""
+    case "${FUNCTION_NAME}" in
+        pre_processor)
             DEPENDENCIES="boto3 pandas==1.5.3 psutil"
             ;;
         *)
@@ -91,28 +98,73 @@ for i in "${!LAMBDA_DIRS[@]}"; do
             ;;
     esac
     
-    # Instalar dependencias en el directorio temporal
-    info_message "Instalando dependencias: ${DEPENDENCIES}"
-    pip install -t ${TEMP_DIR} ${DEPENDENCIES} --upgrade --no-deps
-    show_result $? "Dependencias instaladas" "Error al instalar dependencias"
+    # Crear directorio temporal para la capa
+    LAYER_TEMP_DIR=$(mktemp -d)
+    mkdir -p "${LAYER_TEMP_DIR}/python"
     
-    # Crear archivo ZIP (usando ruta absoluta para evitar problemas)
-    info_message "Creando archivo ZIP..."
-    (cd ${TEMP_DIR} && zip -r "${OUTPUT_PATH}" .)
+    # Instalar dependencias en la capa
+    info_message "Instalando dependencias para capa: ${DEPENDENCIES}"
+    pip install ${DEPENDENCIES} -t "${LAYER_TEMP_DIR}/python" --no-deps --only-binary=:all:
+    INSTALL_RESULT=$?
+    
+    if [ $INSTALL_RESULT -eq 0 ]; then
+        # Comprimir capa
+        info_message "Creando archivo ZIP para capa..."
+        (cd "${LAYER_TEMP_DIR}" && zip -r "${LAYER_ZIP}" .)
+        LAYER_ZIP_RESULT=$?
+        
+        if [ $LAYER_ZIP_RESULT -eq 0 ]; then
+            # Subir capa a S3
+            info_message "Subiendo capa a S3..."
+            S3_LAYER_KEY="lambda_layers/${ENV}/${FUNCTION_NAME}_layer.zip"
+            aws s3 cp "${LAYER_ZIP}" "s3://${BUCKET}/${S3_LAYER_KEY}" --region "${REGION}"
+            
+            # Publicar capa Lambda
+            info_message "Publicando capa Lambda..."
+            LAYER_ARN=$(aws lambda publish-layer-version \
+                --layer-name "${LAYER_NAME}" \
+                --description "Dependencias para ${FUNCTION_NAME}" \
+                --compatible-runtimes python3.9 \
+                --content S3Bucket="${BUCKET}",S3Key="${S3_LAYER_KEY}" \
+                --region "${REGION}" \
+                --query 'LayerVersionArn' \
+                --output text)
+            
+            # Guardar ARN en archivo
+            echo "${FUNCTION_NAME^^}_LAYER_ARN=${LAYER_ARN}" >> $LAYER_ARNS_FILE
+            
+            success_message "Capa para ${FUNCTION_NAME} publicada: ${LAYER_ARN}"
+        else
+            error_message "Error al crear archivo ZIP para capa"
+        fi
+    else
+        error_message "Error al instalar dependencias para la capa"
+    fi
+    
+    # Limpiar directorio temporal de la capa
+    rm -rf "${LAYER_TEMP_DIR}"
+    
+    # 2. EMPAQUETAR FUNCIÓN LAMBDA (LIGERA, SIN DEPENDENCIAS)
+    section_header "EMPAQUETANDO FUNCIÓN ${FUNCTION_NAME}"
+    
+    # Crear ZIP directamente con solo el código (sin dependencias)
+    info_message "Creando archivo ZIP ligero..."
+    (cd "${LAMBDA_DIR}" && zip -r "${OUTPUT_PATH}" .)
     ZIP_RESULT=$?
-    show_result $ZIP_RESULT "Archivo ZIP creado: ${OUTPUT_PATH}" "Error al crear archivo ZIP"
     
     if [ $ZIP_RESULT -eq 0 ]; then
         # Subir archivo ZIP a S3
         info_message "Subiendo archivo ZIP a S3..."
         aws s3 cp "${OUTPUT_PATH}" "s3://${BUCKET}/lambda/${ZIP_NAME}" --region ${REGION}
-        show_result $? "Archivo ZIP subido a s3://${BUCKET}/lambda/${ZIP_NAME}" "Error al subir archivo ZIP"
+        S3_RESULT=$?
+        
+        show_result $S3_RESULT "Archivo ZIP subido a s3://${BUCKET}/lambda/${ZIP_NAME}" "Error al subir archivo ZIP"
+    else
+        error_message "Error al crear archivo ZIP"
     fi
     
-    # Limpiar directorio temporal
-    rm -rf ${TEMP_DIR}
-    success_message "Directorio temporal eliminado"
+    info_message "Limpieza completa"
 done
 
-finalize_script 0 "EMPAQUETADO DE FUNCIONES LAMBDA COMPLETADO" ""
+success_message "Empaquetado completado. ARNs de capas guardados en: ${LAYER_ARNS_FILE}"
 exit 0
