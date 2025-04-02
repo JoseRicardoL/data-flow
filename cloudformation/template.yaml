@@ -28,23 +28,16 @@ Parameters:
     Type: String
     Description: S3 key prefix for Lambda function code packages
     Default: lambda
-  # Parámetros para capas Lambda
+
   PreProcessorLayerArn:
     Type: String
     Description: ARN for the pre_processor Lambda function layer
     Default: ""
-  CheckCapacityLayerArn:
+  PandasLayerArn:
     Type: String
-    Description: ARN for the check_capacity Lambda function layer
-    Default: ""
-  ReleaseCapacityLayerArn:
-    Type: String
-    Description: ARN for the release_capacity Lambda function layer
-    Default: ""
-  TriggerNextLayerArn:
-    Type: String
-    Description: ARN for the trigger_next Lambda function layer
-    Default: ""
+    Description: ARN de la capa de Pandas de AWS
+    Default: "arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1"
+
 
 Resources:
   # Parámetros SSM para compartir valores entre stacks
@@ -81,9 +74,7 @@ Resources:
         CapacityControlTableName: !GetAtt DynamoDBStack.Outputs.CapacityControlTableName
         MaxConcurrentStateMachines: !Ref MaxConcurrentStateMachines
         PreProcessorLayerArn: !Ref PreProcessorLayerArn
-        CheckCapacityLayerArn: !Ref CheckCapacityLayerArn
-        ReleaseCapacityLayerArn: !Ref ReleaseCapacityLayerArn
-        TriggerNextLayerArn: !Ref TriggerNextLayerArn
+        PandasLayerArn: !Ref PandasLayerArn
         StateMachineArnParamName: !GetAtt ParamStoreStack.Outputs.StateMachineArnParameter
       TimeoutInMinutes: 15
 

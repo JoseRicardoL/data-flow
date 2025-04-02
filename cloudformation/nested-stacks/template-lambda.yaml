@@ -20,25 +20,15 @@ Parameters:
   MaxConcurrentStateMachines:
     Type: Number
     Description: Maximum number of concurrent state machine executions
+
   PreProcessorLayerArn:
     Type: String
     Description: ARN for the pre_processor Lambda function layer
     Default: ""
-  CheckCapacityLayerArn:
+  PandasLayerArn:
     Type: String
-    Description: ARN for the check_capacity Lambda function layer
-    Default: ""
-  ReleaseCapacityLayerArn:
-    Type: String
-    Description: ARN for the release_capacity Lambda function layer
-    Default: ""
-  TriggerNextLayerArn:
-    Type: String
-    Description: ARN for the trigger_next Lambda function layer
-    Default: ""
-  StateMachineArnParamName:
-    Type: String
-    Description: SSM Parameter name for state machine ARN
+    Description: ARN de la capa de Pandas de AWS
+    Default: "arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1"
 
 Resources:
   # Función Lambda para preprocesamiento
@@ -52,6 +42,7 @@ Resources:
       Timeout: 300
       MemorySize: 1024
       Layers:
+        - !Ref PandasLayerArn
         - !Ref PreProcessorLayerArn
       Environment:
         Variables:
@@ -70,8 +61,6 @@ Resources:
       Runtime: python3.11
       Timeout: 60
       MemorySize: 256
-      Layers:
-        - !Ref CheckCapacityLayerArn
       Environment:
         Variables:
           CAPACITY_TABLE: !Ref CapacityControlTableName
@@ -90,8 +79,6 @@ Resources:
       Runtime: python3.11
       Timeout: 60
       MemorySize: 256
-      Layers:
-        - !Ref ReleaseCapacityLayerArn
       Environment:
         Variables:
           CAPACITY_TABLE: !Ref CapacityControlTableName
@@ -110,8 +97,6 @@ Resources:
       Runtime: python3.11
       Timeout: 60
       MemorySize: 256
-      Layers:
-        - !Ref TriggerNextLayerArn
       Environment:
         Variables:
           STATE_TABLE: !Ref ProcessingStateTableName

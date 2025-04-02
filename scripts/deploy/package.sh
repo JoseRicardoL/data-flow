@@ -92,12 +92,17 @@ for i in "${!LAMBDA_DIRS[@]}"; do
     case "${FUNCTION_NAME}" in
     pre_processor)
         # Usa pandas sin especificar versión exacta
-        DEPENDENCIES="boto3 pandas psutil"
+        DEPENDENCIES="psutil"
         ;;
     *)
-        DEPENDENCIES="boto3"
+        DEPENDENCIES=""
         ;;
     esac
+
+    if [ -z "$DEPENDENCIES" ]; then
+        echo "No hay dependencias para ${FUNCTION_NAME}. Omitiendo creación de capa."
+        continue
+    fi
 
     # Crear directorio temporal para la capa
     LAYER_TEMP_DIR=$(mktemp -d)
@@ -125,7 +130,7 @@ for i in "${!LAMBDA_DIRS[@]}"; do
             LAYER_ARN=$(aws lambda publish-layer-version \
                 --layer-name "${LAYER_NAME}" \
                 --description "Dependencias para ${FUNCTION_NAME}" \
-                --compatible-runtimes python3.8 python3.9 python3.10 python3.11 python3.12 \
+                --compatible-runtimes python3.11 \
                 --content S3Bucket="${BUCKET}",S3Key="${S3_LAYER_KEY}" \
                 --region "${REGION}" \
                 --query 'LayerVersionArn' \
@@ -133,6 +138,10 @@ for i in "${!LAMBDA_DIRS[@]}"; do
 
             # Guardar ARN en archivo
             echo "${FUNCTION_NAME^^}_LAYER_ARN=${LAYER_ARN}" >>$LAYER_ARNS_FILE
+
+            if [ "${FUNCTION_NAME}" == "pre_processor" ]; then
+                echo "PANDAS_LAYER_ARN=arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1" >>$LAYER_ARNS_FILE
+            fi
 
             success_message "Capa para ${FUNCTION_NAME} publicada: ${LAYER_ARN}"
         else

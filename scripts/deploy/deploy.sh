@@ -60,9 +60,7 @@ if [ ! -f "cloudformation/parameters/${ENV}.json.template" ]; then
   },
   "layerArns": {
     "preProcessor": "${PRE_PROCESSOR_LAYER_ARN:-}",
-    "checkCapacity": "${CHECK_CAPACITY_LAYER_ARN:-}",
-    "releaseCapacity": "${RELEASE_CAPACITY_LAYER_ARN:-}",
-    "triggerNext": "${TRIGGER_NEXT_LAYER_ARN:-}"
+    "pandasLayer": "${PANDAS_LAYER_ARN:-}"
   },
   "concurrency": {
     "maxRuns": 25,
@@ -122,16 +120,13 @@ show_result $? "Template empaquetado correctamente: ${PACKAGED_TEMPLATE}" "Error
 LAYER_ARNS_FILE="layer_arns/${ENV}_layer_arns.env"
 if [ -f "$LAYER_ARNS_FILE" ]; then
     info_message "Cargando ARNs de las capas Lambda..."
-    source "$LAYER_ARNS_FILE"
-    
-    # Verificar que las variables necesarias estén definidas
-    if [ -z "$PRE_PROCESSOR_LAYER_ARN" ] || [ -z "$CHECK_CAPACITY_LAYER_ARN" ] || [ -z "$RELEASE_CAPACITY_LAYER_ARN" ] || [ -z "$TRIGGER_NEXT_LAYER_ARN" ]; then
-        warning_message "Algunas variables de ARNs de capas no están definidas en $LAYER_ARNS_FILE"
-        info_message "Esto puede provocar que el despliegue falle si las capas son requeridas"
-    fi
+    # Solo cargar PRE_PROCESSOR_LAYER_ARN y PANDAS_LAYER_ARN
+    PRE_PROCESSOR_LAYER_ARN=$(grep PRE_PROCESSOR_LAYER_ARN "$LAYER_ARNS_FILE" | cut -d'=' -f2)
+    PANDAS_LAYER_ARN=$(grep PANDAS_LAYER_ARN "$LAYER_ARNS_FILE" | cut -d'=' -f2)
 else
     warning_message "No se encontró el archivo de ARNs de capas: $LAYER_ARNS_FILE"
-    info_message "Si las capas son requeridas, el despliegue podría fallar"
+    PRE_PROCESSOR_LAYER_ARN=""
+    PANDAS_LAYER_ARN=""
 fi
 
 # Extraer parámetros del archivo JSON generado
@@ -153,42 +148,22 @@ if command -v jq >/dev/null 2>&1; then
     # Método con jq (más robusto)
     info_message "Usando jq para procesar parámetros..."
     
-    # Extraer parámetros básicos - Sin intentar caer de vuelta a variables de entorno dentro de jq
-    ENV_VALUE=$(jq -r '.environment' $PARAMS_FILE)
-    [ -z "$ENV_VALUE" ] && ENV_VALUE="$ENV"
-    
-    BUCKET_VALUE=$(jq -r '.bucket' $PARAMS_FILE)
-    [ -z "$BUCKET_VALUE" ] && BUCKET_VALUE="$S3_BUCKET"
-    
-    ARTIFACT_BUCKET=$(jq -r '.artifactBucket' $PARAMS_FILE)
-    [ -z "$ARTIFACT_BUCKET" ] && ARTIFACT_BUCKET="${ARTIFACTORY_BUCKET:-$S3_BUCKET}"
+    # Extraer parámetros básicos
+    ENV_VALUE=$(jq -r ".environment // \"$ENV\"" $PARAMS_FILE)
+    BUCKET_VALUE=$(jq -r ".bucket // \"$S3_BUCKET\"" $PARAMS_FILE)
+    ARTIFACT_BUCKET=$(jq -r ".artifactBucket // \"${ARTIFACTORY_BUCKET:-$S3_BUCKET}\"" $PARAMS_FILE)
     
     # Extraer configuración Glue
-    WORKER_TYPE=$(jq -r '.glueJobConfig.workerType' $PARAMS_FILE)
-    [ -z "$WORKER_TYPE" ] && WORKER_TYPE="G.1X"
-    
-    WORKERS=$(jq -r '.glueJobConfig.numberOfWorkers' $PARAMS_FILE)
-    [ -z "$WORKERS" ] && WORKERS="2"
+    WORKER_TYPE=$(jq -r '.glueJobConfig.workerType // "G.1X"' $PARAMS_FILE)
+    WORKERS=$(jq -r '.glueJobConfig.numberOfWorkers // 2' $PARAMS_FILE)
     
     # Extraer configuración de concurrencia
-    MAX_RUNS=$(jq -r '.concurrency.maxRuns' $PARAMS_FILE)
-    [ -z "$MAX_RUNS" ] && MAX_RUNS="25"
+    MAX_RUNS=$(jq -r '.concurrency.maxRuns // 25' $PARAMS_FILE)
+    MAX_SM=$(jq -r '.concurrency.maxStateMachines // 5' $PARAMS_FILE)
     
-    MAX_SM=$(jq -r '.concurrency.maxStateMachines' $PARAMS_FILE)
-    [ -z "$MAX_SM" ] && MAX_SM="5"
-    
-    # Capas Lambda - usar variables de entorno si están definidas
-    PRE_PROCESSOR_LAYER_ARN=$(jq -r '.layerArns.preProcessor' $PARAMS_FILE)
-    [ -z "$PRE_PROCESSOR_LAYER_ARN" ] && PRE_PROCESSOR_LAYER_ARN="${PRE_PROCESSOR_LAYER_ARN:-}"
-    
-    CHECK_CAPACITY_LAYER_ARN=$(jq -r '.layerArns.checkCapacity' $PARAMS_FILE)
-    [ -z "$CHECK_CAPACITY_LAYER_ARN" ] && CHECK_CAPACITY_LAYER_ARN="${CHECK_CAPACITY_LAYER_ARN:-}"
-    
-    RELEASE_CAPACITY_LAYER_ARN=$(jq -r '.layerArns.releaseCapacity' $PARAMS_FILE)
-    [ -z "$RELEASE_CAPACITY_LAYER_ARN" ] && RELEASE_CAPACITY_LAYER_ARN="${RELEASE_CAPACITY_LAYER_ARN:-}"
-    
-    TRIGGER_NEXT_LAYER_ARN=$(jq -r '.layerArns.triggerNext' $PARAMS_FILE)
-    [ -z "$TRIGGER_NEXT_LAYER_ARN" ] && TRIGGER_NEXT_LAYER_ARN="${TRIGGER_NEXT_LAYER_ARN:-}"
+    # Capas Lambda - Solo PRE_PROCESSOR_LAYER_ARN y PANDAS_LAYER_ARN
+    PRE_PROCESSOR_LAYER_ARN=$(jq -r '.layerArns.preProcessor // env.PRE_PROCESSOR_LAYER_ARN // ""' $PARAMS_FILE)
+    PANDAS_LAYER_ARN=$(jq -r '.layerArns.pandasLayer // env.PANDAS_LAYER_ARN // ""' $PARAMS_FILE)
     
     # Construir string de parámetros
     CF_PARAMS="S3Bucket=${BUCKET_VALUE} \
@@ -201,9 +176,7 @@ MaxConcurrentRuns=${MAX_RUNS} \
 MaxConcurrentStateMachines=${MAX_SM} \
 LambdaS3KeyPrefix=lambda \
 PreProcessorLayerArn=${PRE_PROCESSOR_LAYER_ARN} \
-CheckCapacityLayerArn=${CHECK_CAPACITY_LAYER_ARN} \
-ReleaseCapacityLayerArn=${RELEASE_CAPACITY_LAYER_ARN} \
-TriggerNextLayerArn=${TRIGGER_NEXT_LAYER_ARN}"
+PandasLayerArn=${PANDAS_LAYER_ARN}"
 else
     # Método alternativo sin jq
     warning_message "jq no está instalado, usando método alternativo para parámetros..."
@@ -219,9 +192,7 @@ MaxConcurrentRuns=25 \
 MaxConcurrentStateMachines=5 \
 LambdaS3KeyPrefix=lambda \
 PreProcessorLayerArn=${PRE_PROCESSOR_LAYER_ARN:-} \
-CheckCapacityLayerArn=${CHECK_CAPACITY_LAYER_ARN:-} \
-ReleaseCapacityLayerArn=${RELEASE_CAPACITY_LAYER_ARN:-} \
-TriggerNextLayerArn=${TRIGGER_NEXT_LAYER_ARN:-}"
+PandasLayerArn=${PANDAS_LAYER_ARN:-}"
 fi
 
 # Desplegar el stack

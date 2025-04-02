@@ -16,9 +16,8 @@
 	},
 	"layerArns": {
 		"preProcessor": "${PRE_PROCESSOR_LAYER_ARN:-}",
-		"checkCapacity": "${CHECK_CAPACITY_LAYER_ARN:-}",
-		"releaseCapacity": "${RELEASE_CAPACITY_LAYER_ARN:-}",
-		"triggerNext": "${TRIGGER_NEXT_LAYER_ARN:-}"
+		"pandasLayer": "${PANDAS_LAYER_ARN:-arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1}"
+
 	},
 	"concurrency": {
 		"maxRuns": 25,
