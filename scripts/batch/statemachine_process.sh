@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script para procesar combinaciones GTFS usando la máquina de estados
 
-# Cargar utilidades
+# Cargar utilidades de formato
 source "$(dirname "$0")/../utils/format.sh"
 
 # Verificar parámetros
@@ -74,6 +74,25 @@ for cmd in python3 aws jq; do
         exit 1
     fi
 done
+
+# Verificar si las combinaciones existen antes de ejecutar
+if [ "$OPERATION" = "register" ] || [ "$OPERATION" = "start" ]; then
+    if [ ! -f "$COMBINATIONS_FILE" ]; then
+        error_message "El archivo de combinaciones $COMBINATIONS_FILE no existe."
+        info_message "Ejecuta primero 'make discover-gtfs' para generar combinaciones."
+        exit 1
+    fi
+    
+    # Verificar si hay combinaciones para procesar
+    COMBINATIONS_COUNT=$(jq '.combinations | length' "$COMBINATIONS_FILE")
+    if [ "$COMBINATIONS_COUNT" -eq 0 ]; then
+        warning_message "No hay combinaciones en el archivo $COMBINATIONS_FILE."
+        info_message "Ejecuta 'make discover-gtfs' para descubrir nuevas combinaciones."
+        exit 1
+    else
+        success_message "Se encontraron $COMBINATIONS_COUNT combinaciones para procesar."
+    fi
+fi
 
 # Ejecutar el script Python según la operación
 case "$OPERATION" in

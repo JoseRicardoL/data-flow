@@ -1,0 +1,227 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Step Functions for GTFS Data Processing"
+
+Parameters:
+  Environment:
+    Type: String
+    Description: Deployment environment (dev, test, prod)
+  S3Bucket:
+    Type: String
+    Description: S3 Bucket for scripts and data
+  GTFSPreprocessorFunction:
+    Type: String
+    Description: Name of the GTFS Preprocessor Lambda function
+  CheckCapacityFunction:
+    Type: String
+    Description: Name of the Check Capacity Lambda function
+  ReleaseCapacityFunction:
+    Type: String
+    Description: Name of the Release Capacity Lambda function
+  TriggerNextExecutionFunction:
+    Type: String
+    Description: Name of the Trigger Next Execution Lambda function
+  MacroGeneratorJob:
+    Type: String
+    Description: Name of the Macro Generator Glue job
+  MacroStopsGeneratorJob:
+    Type: String
+    Description: Name of the Macro Stops Generator Glue job
+  ProcessingStateTableName:
+    Type: String
+    Description: Name of the DynamoDB table for processing state
+  StateMachineArnParamName:
+    Type: String
+    Description: SSM Parameter name for state machine ARN
+  StateMachineUpdaterFunctionName:
+    Type: String
+    Description: Name of the Lambda function that updates SSM Parameter
+
+Resources:
+  # Rol IAM para la máquina de estados
+  StepFunctionsRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: InvokeLambda
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                Resource:
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${GTFSPreprocessorFunction}"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${CheckCapacityFunction}"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${ReleaseCapacityFunction}"
+                  - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${TriggerNextExecutionFunction}"
+        - PolicyName: InvokeGlue
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - glue:StartJobRun
+                  - glue:GetJobRun
+                Resource:
+                  - !Sub "arn:aws:glue:${AWS::Region}:${AWS::AccountId}:job/${MacroGeneratorJob}"
+                  - !Sub "arn:aws:glue:${AWS::Region}:${AWS::AccountId}:job/${MacroStopsGeneratorJob}"
+
+  # Máquina de estados Step Functions
+  GTFSProcessingStateMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      StateMachineName: !Sub "GTFSProcessingStateMachine-${Environment}"
+      RoleArn: !GetAtt StepFunctionsRole.Arn
+      Definition:
+        Comment: "State machine for GTFS Processing"
+        StartAt: CheckCapacity
+        States:
+          CheckCapacity:
+            Type: Task
+            Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${CheckCapacityFunction}"
+            Next: CapacityChoice
+
+          CapacityChoice:
+            Type: Choice
+            Choices:
+              - Variable: "$.hasCapacity"
+                BooleanEquals: true
+                Next: Preprocess
+            Default: WaitForCapacity
+
+          WaitForCapacity:
+            Type: Wait
+            Seconds: 30
+            Next: CheckCapacity
+
+          Preprocess:
+            Type: Task
+            Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${GTFSPreprocessorFunction}"
+            InputPath: "$"
+            ResultPath: "$.preprocessResult"
+            Next: PreprocessChoice
+            Retry:
+              - ErrorEquals: ["States.ALL"]
+                IntervalSeconds: 3
+                MaxAttempts: 2
+                BackoffRate: 1.5
+            Catch:
+              - ErrorEquals: ["States.ALL"]
+                ResultPath: "$.error"
+                Next: HandleFailure
+
+          PreprocessChoice:
+            Type: Choice
+            Choices:
+              - Variable: "$.preprocessResult.status"
+                StringEquals: "success"
+                Next: MacroAndMacroStops
+            Default: HandleFailure
+
+          MacroAndMacroStops:
+            Type: Parallel
+            Branches:
+              - StartAt: MacroJob
+                States:
+                  MacroJob:
+                    Type: Task
+                    Resource: "arn:aws:states:::glue:startJobRun.sync"
+                    Parameters:
+                      JobName: !Ref MacroGeneratorJob
+                      Arguments:
+                        "--P_EMPRESA.$": "$.P_EMPRESA"
+                        "--P_VERSION.$": "$.P_VERSION"
+                        "--P_CONTR.$": "$.P_CONTR"
+                        "--temp_dir.$": "$.preprocessResult.temp_dir"
+                        "--execution_id.$": "$.preprocessResult.execution_id"
+                        "--bronze_bucket": !Ref S3Bucket
+                    ResultPath: "$.macroResult"
+                    End: true
+                    Retry:
+                      - ErrorEquals: ["States.ALL"]
+                        IntervalSeconds: 60
+                        MaxAttempts: 2
+                        BackoffRate: 1.5
+
+              - StartAt: MacroStopsJob
+                States:
+                  MacroStopsJob:
+                    Type: Task
+                    Resource: "arn:aws:states:::glue:startJobRun.sync"
+                    Parameters:
+                      JobName: !Ref MacroStopsGeneratorJob
+                      Arguments:
+                        "--P_EMPRESA.$": "$.P_EMPRESA"
+                        "--P_VERSION.$": "$.P_VERSION"
+                        "--P_CONTR.$": "$.P_CONTR"
+                        "--temp_dir.$": "$.preprocessResult.temp_dir"
+                        "--execution_id.$": "$.preprocessResult.execution_id"
+                        "--bronze_bucket": !Ref S3Bucket
+                    ResultPath: "$.macroStopsResult"
+                    End: true
+                    Retry:
+                      - ErrorEquals: ["States.ALL"]
+                        IntervalSeconds: 60
+                        MaxAttempts: 2
+                        BackoffRate: 1.5
+
+            ResultPath: "$.parallelResults"
+            Next: RecordSuccess
+            Catch:
+              - ErrorEquals: ["States.ALL"]
+                ResultPath: "$.error"
+                Next: HandleFailure
+
+          RecordSuccess:
+            Type: Task
+            Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${ReleaseCapacityFunction}"
+            Parameters:
+              combinationId.$: "$.id"
+              status: "completed"
+            ResultPath: "$.releaseResult"
+            Next: TriggerNextExecution
+
+          HandleFailure:
+            Type: Task
+            Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${ReleaseCapacityFunction}"
+            Parameters:
+              combinationId.$: "$.id"
+              status: "failed"
+              error.$: "$.error"
+            ResultPath: "$.releaseResult"
+            Next: TriggerNextExecution
+
+          TriggerNextExecution:
+            Type: Task
+            Resource: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${TriggerNextExecutionFunction}"
+            ResultPath: "$.triggerResult"
+            End: true
+
+  # Custom Resource para actualizar el parámetro SSM
+  UpdateStateMachineArn:
+    Type: Custom::UpdateStateMachineArn
+    DependsOn: GTFSProcessingStateMachine
+    Properties:
+      ServiceToken: !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${StateMachineUpdaterFunctionName}"
+      StateMachineArn: !Ref GTFSProcessingStateMachine
+      ParameterName: !Ref StateMachineArnParamName
+
+Outputs:
+  StateMachine:
+    Description: ARN of the Step Functions state machine
+    Value: !Ref GTFSProcessingStateMachine
+    Export:
+      Name: !Sub "${AWS::StackName}-StateMachine"
+
+  StepFunctionsRole:
+    Description: ARN of the IAM role for Step Functions
+    Value: !GetAtt StepFunctionsRole.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-StepFunctionsRole"

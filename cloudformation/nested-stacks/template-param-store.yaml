@@ -1,0 +1,54 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Parameter Store Configuration for GTFS Processing"
+
+Parameters:
+  Environment:
+    Type: String
+    Description: Deployment environment (dev, test, prod)
+
+Resources:
+  # Parámetro para el ARN de la máquina de estados
+  StateMachineArnParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/gtfs/${Environment}/state-machine-arn"
+      Type: String
+      Value: "placeholder-will-be-updated" # Se actualizará después
+      Description: ARN of the GTFS Processing State Machine
+
+  # Parámetro para nombres de recursos de DynamoDB
+  ProcessingStateTableParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/gtfs/${Environment}/processing-state-table"
+      Type: String
+      Value: !Sub "GTFSProcessingState-${Environment}"
+      Description: Name of the DynamoDB table for processing state
+
+  # Parámetro para nombres de recursos de Lambda
+  LambdaNamesParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/gtfs/${Environment}/lambda-functions"
+      Type: String
+      Value: "{}" # Se actualizará después
+      Description: JSON object with Lambda function names
+
+Outputs:
+  StateMachineArnParameter:
+    Description: SSM Parameter name for StateMachine ARN
+    Value: !Sub "/gtfs/${Environment}/state-machine-arn"
+    Export:
+      Name: !Sub "${AWS::StackName}-StateMachineArnParameter"
+
+  ProcessingStateTableParameter:
+    Description: SSM Parameter name for Processing State Table
+    Value: !Sub "/gtfs/${Environment}/processing-state-table"
+    Export:
+      Name: !Sub "${AWS::StackName}-ProcessingStateTableParameter"
+
+  LambdaNamesParameter:
+    Description: SSM Parameter name for Lambda function names
+    Value: !Sub "/gtfs/${Environment}/lambda-functions"
+    Export:
+      Name: !Sub "${AWS::StackName}-LambdaNamesParameter"

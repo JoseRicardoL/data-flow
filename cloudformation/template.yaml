@@ -1,20 +1,16 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Description: 'AWS Glue Job for GTFS Data Processing with State Machine Orchestration'
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "AWS Glue Job for GTFS Data Processing with Nested Stacks"
 
 Parameters:
   S3Bucket:
     Type: String
     Description: S3 Bucket for scripts and data
-    Default: mado-gtfs-dev-eu-west-1-992807582431-bronze
   S3BUCKETArtifactory:
     Type: String
     Description: S3 Bucket for artifactory resources
-    Default: mado-gtfs-dev-eu-west-1-992807582431-artifactory
   GlueJobName:
     Type: String
   Environment:
-    Type: String
-  ScriptLocation:
     Type: String
   WorkerType:
     Type: String
@@ -51,478 +47,108 @@ Parameters:
     Default: ""
 
 Resources:
-  # DynamoDB para control de concurrencia y estado
-  ProcessingStateTable:
-    Type: AWS::DynamoDB::Table
+  # Parámetros SSM para compartir valores entre stacks
+  ParamStoreStack:
+    Type: AWS::CloudFormation::Stack
     Properties:
-      TableName: !Sub 'GTFSProcessingState-${Environment}'
-      BillingMode: PAY_PER_REQUEST
-      AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: id
-          KeyType: HASH
-      Tags:
-        - Key: Environment
-          Value: !Ref Environment
+      TemplateURL: !Sub "https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-param-store.yaml"
+      Parameters:
+        Environment: !Ref Environment
+      TimeoutInMinutes: 10
 
-  # DynamoDB para control de capacidad
-  CapacityControlTable:
-    Type: AWS::DynamoDB::Table
+  # Stack de infraestructura base (DynamoDB tables)
+  DynamoDBStack:
+    Type: AWS::CloudFormation::Stack
     Properties:
-      TableName: !Sub 'GTFSCapacityControl-${Environment}'
-      BillingMode: PAY_PER_REQUEST
-      AttributeDefinitions:
-        - AttributeName: id
-          AttributeType: S
-      KeySchema:
-        - AttributeName: id
-          KeyType: HASH
-      Tags:
-        - Key: Environment
-          Value: !Ref Environment
+      TemplateURL: !Sub "https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-dynamo.yaml"
+      Parameters:
+        Environment: !Ref Environment
+      TimeoutInMinutes: 10
 
-  # Función Lambda para preprocesamiento
-  GTFSPreprocessorFunction:
-    Type: AWS::Lambda::Function
+  # Stack de funciones Lambda
+  LambdaStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn:
+      - DynamoDBStack
+      - ParamStoreStack
     Properties:
-      FunctionName: !Sub 'GTFSPreprocessor-${Environment}'
-      Handler: lambda_function.lambda_handler
-      Role: !GetAtt PreprocessorRole.Arn
-      Runtime: python3.9
-      Timeout: 300
-      MemorySize: 1024
-      Layers:
-        - !Ref PreProcessorLayerArn
-      Environment:
-        Variables:
-          S3_BUCKET: !Ref S3Bucket
-      Code:
+      TemplateURL: !Sub "https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-lambda.yaml"
+      Parameters:
         S3Bucket: !Ref S3Bucket
-        S3Key: !Sub '${LambdaS3KeyPrefix}/pre_processor.zip'
+        Environment: !Ref Environment
+        LambdaS3KeyPrefix: !Ref LambdaS3KeyPrefix
+        ProcessingStateTableName: !GetAtt DynamoDBStack.Outputs.ProcessingStateTableName
+        CapacityControlTableName: !GetAtt DynamoDBStack.Outputs.CapacityControlTableName
+        MaxConcurrentStateMachines: !Ref MaxConcurrentStateMachines
+        PreProcessorLayerArn: !Ref PreProcessorLayerArn
+        CheckCapacityLayerArn: !Ref CheckCapacityLayerArn
+        ReleaseCapacityLayerArn: !Ref ReleaseCapacityLayerArn
+        TriggerNextLayerArn: !Ref TriggerNextLayerArn
+        StateMachineArnParamName: !GetAtt ParamStoreStack.Outputs.StateMachineArnParameter
+      TimeoutInMinutes: 15
 
-  # Función Lambda para verificar capacidad
-  CheckCapacityFunction:
-    Type: AWS::Lambda::Function
+  # Stack de trabajos Glue
+  GlueStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: DynamoDBStack
     Properties:
-      FunctionName: !Sub 'GTFSCheckCapacity-${Environment}'
-      Handler: lambda_function.handler
-      Role: !GetAtt LambdaStateMachineRole.Arn
-      Runtime: python3.9
-      Timeout: 60
-      MemorySize: 256
-      Layers:
-        - !Ref CheckCapacityLayerArn
-      Environment:
-        Variables:
-          CAPACITY_TABLE: !Ref CapacityControlTable
-          MAX_CONCURRENT_EXECUTIONS: !Ref MaxConcurrentStateMachines
-      Code:
+      TemplateURL: !Sub "https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-glue.yaml"
+      Parameters:
         S3Bucket: !Ref S3Bucket
-        S3Key: !Sub '${LambdaS3KeyPrefix}/check_capacity.zip'
-
-  # Función Lambda para liberar capacidad
-  ReleaseCapacityFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      FunctionName: !Sub 'GTFSReleaseCapacity-${Environment}'
-      Handler: lambda_function.handler
-      Role: !GetAtt LambdaStateMachineRole.Arn
-      Runtime: python3.9
-      Timeout: 60
-      MemorySize: 256
-      Layers:
-        - !Ref ReleaseCapacityLayerArn
-      Environment:
-        Variables:
-          CAPACITY_TABLE: !Ref CapacityControlTable
-          STATE_TABLE: !Ref ProcessingStateTable
-      Code:
-        S3Bucket: !Ref S3Bucket
-        S3Key: !Sub '${LambdaS3KeyPrefix}/release_capacity.zip'
-
-  # Función Lambda para disparar la siguiente ejecución
-  TriggerNextExecutionFunction:
-    Type: AWS::Lambda::Function
-    Properties:
-      FunctionName: !Sub 'GTFSTriggerNextExecution-${Environment}'
-      Handler: lambda_function.handler
-      Role: !GetAtt LambdaStateMachineRole.Arn
-      Runtime: python3.9
-      Timeout: 60
-      MemorySize: 256
-      Layers:
-        - !Ref TriggerNextLayerArn
-      Environment:
-        Variables:
-          STATE_TABLE: !Ref ProcessingStateTable
-          STATE_MACHINE_ARN: !Ref GTFSProcessingStateMachine
-      Code:
-        S3Bucket: !Ref S3Bucket
-        S3Key: !Sub '${LambdaS3KeyPrefix}/trigger_next.zip'
-
-  # Rol IAM para la función Lambda
-  PreprocessorRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-      Policies:
-        - PolicyName: S3Access
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - s3:GetObject
-                  - s3:PutObject
-                  - s3:ListBucket
-                Resource:
-                  - !Sub 'arn:aws:s3:::${S3Bucket}'
-                  - !Sub 'arn:aws:s3:::${S3Bucket}/*'
-
-  # Rol IAM para las funciones Lambda de la máquina de estados
-  LambdaStateMachineRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: lambda.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
-      Policies:
-        - PolicyName: DynamoDBAccess
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - dynamodb:GetItem
-                  - dynamodb:PutItem
-                  - dynamodb:UpdateItem
-                  - dynamodb:Scan
-                  - dynamodb:Query
-                Resource:
-                  - !GetAtt ProcessingStateTable.Arn
-                  - !GetAtt CapacityControlTable.Arn
-        - PolicyName: StepFunctionsAccess
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - states:StartExecution
-                  - states:DescribeExecution
-                Resource:
-                  - !Sub 'arn:aws:states:${AWS::Region}:${AWS::AccountId}:stateMachine:GTFSProcessingStateMachine-${Environment}'
-                  - !Sub 'arn:aws:states:${AWS::Region}:${AWS::AccountId}:execution:GTFSProcessingStateMachine-${Environment}:*'
-
-  # Rol IAM para la máquina de estados
-  StepFunctionsRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: states.amazonaws.com
-            Action: sts:AssumeRole
-      Policies:
-        - PolicyName: InvokeLambda
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - lambda:InvokeFunction
-                Resource:
-                  - !GetAtt GTFSPreprocessorFunction.Arn
-                  - !GetAtt CheckCapacityFunction.Arn
-                  - !GetAtt ReleaseCapacityFunction.Arn
-                  - !GetAtt TriggerNextExecutionFunction.Arn
-        - PolicyName: InvokeGlue
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Effect: Allow
-                Action:
-                  - glue:StartJobRun
-                  - glue:GetJobRun
-                Resource:
-                  - !Sub 'arn:aws:glue:${AWS::Region}:${AWS::AccountId}:job/${MacroGeneratorJob}'
-                  - !Sub 'arn:aws:glue:${AWS::Region}:${AWS::AccountId}:job/${MacroStopsGeneratorJob}'
-
-  # Máquina de estados Step Functions
-  GTFSProcessingStateMachine:
-    Type: AWS::StepFunctions::StateMachine
-    Properties:
-      StateMachineName: !Sub 'GTFSProcessingStateMachine-${Environment}'
-      RoleArn: !GetAtt StepFunctionsRole.Arn
-      Definition:
-        Comment: "State machine for GTFS Processing"
-        StartAt: CheckCapacity
-        States:
-          CheckCapacity:
-            Type: Task
-            Resource: !GetAtt CheckCapacityFunction.Arn
-            Next: CapacityChoice
-          
-          CapacityChoice:
-            Type: Choice
-            Choices:
-              - Variable: "$.hasCapacity"
-                BooleanEquals: true
-                Next: Preprocess
-            Default: WaitForCapacity
-          
-          WaitForCapacity:
-            Type: Wait
-            Seconds: 30
-            Next: CheckCapacity
-          
-          Preprocess:
-            Type: Task
-            Resource: !GetAtt GTFSPreprocessorFunction.Arn
-            InputPath: "$"
-            ResultPath: "$.preprocessResult"
-            Next: PreprocessChoice
-            Retry:
-              - ErrorEquals: ["States.ALL"]
-                IntervalSeconds: 3
-                MaxAttempts: 2
-                BackoffRate: 1.5
-            Catch:
-              - ErrorEquals: ["States.ALL"]
-                ResultPath: "$.error"
-                Next: HandleFailure
-          
-          PreprocessChoice:
-            Type: Choice
-            Choices:
-              - Variable: "$.preprocessResult.status"
-                StringEquals: "success"
-                Next: MacroAndMacroStops
-            Default: HandleFailure
-          
-          MacroAndMacroStops:
-            Type: Parallel
-            Branches:
-              - StartAt: MacroJob
-                States:
-                  MacroJob:
-                    Type: Task
-                    Resource: "arn:aws:states:::glue:startJobRun.sync"
-                    Parameters:
-                      JobName: !Ref MacroGeneratorJob
-                      Arguments:
-                        "--P_EMPRESA.$": "$.P_EMPRESA"
-                        "--P_VERSION.$": "$.P_VERSION"
-                        "--P_CONTR.$": "$.P_CONTR"
-                        "--temp_dir.$": "$.preprocessResult.temp_dir"
-                        "--execution_id.$": "$.preprocessResult.execution_id"
-                        "--bronze_bucket": !Ref S3Bucket
-                    ResultPath: "$.macroResult"
-                    End: true
-                    Retry:
-                      - ErrorEquals: ["States.ALL"]
-                        IntervalSeconds: 60
-                        MaxAttempts: 2
-                        BackoffRate: 1.5
-              
-              - StartAt: MacroStopsJob
-                States:
-                  MacroStopsJob:
-                    Type: Task
-                    Resource: "arn:aws:states:::glue:startJobRun.sync"
-                    Parameters:
-                      JobName: !Ref MacroStopsGeneratorJob
-                      Arguments:
-                        "--P_EMPRESA.$": "$.P_EMPRESA"
-                        "--P_VERSION.$": "$.P_VERSION"
-                        "--P_CONTR.$": "$.P_CONTR"
-                        "--temp_dir.$": "$.preprocessResult.temp_dir"
-                        "--execution_id.$": "$.preprocessResult.execution_id"
-                        "--bronze_bucket": !Ref S3Bucket
-                    ResultPath: "$.macroStopsResult"
-                    End: true
-                    Retry:
-                      - ErrorEquals: ["States.ALL"]
-                        IntervalSeconds: 60
-                        MaxAttempts: 2
-                        BackoffRate: 1.5
-            
-            ResultPath: "$.parallelResults"
-            Next: RecordSuccess
-            Catch:
-              - ErrorEquals: ["States.ALL"]
-                ResultPath: "$.error"
-                Next: HandleFailure
-          
-          RecordSuccess:
-            Type: Task
-            Resource: !GetAtt ReleaseCapacityFunction.Arn
-            Parameters:
-              combinationId.$: "$.id"
-              status: "completed"
-            ResultPath: "$.releaseResult"
-            Next: TriggerNextExecution
-          
-          HandleFailure:
-            Type: Task
-            Resource: !GetAtt ReleaseCapacityFunction.Arn
-            Parameters:
-              combinationId.$: "$.id"
-              status: "failed"
-              error.$: "$.error"
-            ResultPath: "$.releaseResult"
-            Next: TriggerNextExecution
-          
-          TriggerNextExecution:
-            Type: Task
-            Resource: !GetAtt TriggerNextExecutionFunction.Arn
-            ResultPath: "$.triggerResult"
-            End: true
-
-  # Trabajo Glue para MacroGenerator
-  MacroGeneratorJob:
-    Type: AWS::Glue::Job
-    Properties:
-      Name: !Sub 'MacroGenerator-${Environment}'
-      Role: !GetAtt ExecuteQueryGlueRole.Arn
-      DefaultArguments:
-        '--job-language': 'python'
-        '--continuous-log-logGroup': '/aws-glue/jobs/logs-dev'
-        '--enable-continuous-cloudwatch-log': 'true'
-        '--bronze_bucket': !Ref S3Bucket
-        '--additional-python-modules': 'psutil'
-      ExecutionProperty:
+        S3BUCKETArtifactory: !Ref S3BUCKETArtifactory
+        Environment: !Ref Environment
+        WorkerType: !Ref WorkerType
+        NumberOfWorkers: !Ref NumberOfWorkers
         MaxConcurrentRuns: !Ref MaxConcurrentRuns
-      GlueVersion: "4.0"
-      Command:
-        Name: glueetl
-        PythonVersion: "3"
-        ScriptLocation: !Sub "s3://${S3Bucket}/scripts/glue/macro_generator/glue_script.py"
-      WorkerType: !Ref WorkerType
-      NumberOfWorkers: !Ref NumberOfWorkers
-      Timeout: 2880
+        GlueJobName: !Ref GlueJobName
+      TimeoutInMinutes: 15
 
-  # Trabajo Glue para MacroStopsGenerator
-  MacroStopsGeneratorJob:
-    Type: AWS::Glue::Job
+  # Stack de Step Functions
+  StepFunctionsStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn:
+      - LambdaStack
+      - GlueStack
+      - ParamStoreStack
     Properties:
-      Name: !Sub 'MacroStopsGenerator-${Environment}'
-      Role: !GetAtt ExecuteQueryGlueRole.Arn
-      DefaultArguments:
-        '--job-language': 'python'
-        '--continuous-log-logGroup': '/aws-glue/jobs/logs-dev'
-        '--enable-continuous-cloudwatch-log': 'true'
-        '--bronze_bucket': !Ref S3Bucket
-        '--additional-python-modules': 'psutil'
-      ExecutionProperty:
-        MaxConcurrentRuns: !Ref MaxConcurrentRuns
-      GlueVersion: "4.0"
-      Command:
-        Name: glueetl
-        PythonVersion: "3"
-        ScriptLocation: !Sub "s3://${S3Bucket}/scripts/glue/macro_stops_generator/glue_script.py"
-      WorkerType: !Ref WorkerType
-      NumberOfWorkers: !Ref NumberOfWorkers
-      Timeout: 2880
-
-  # Rol IAM para los trabajos Glue (compartido)
-  ExecuteQueryGlueRole:
-    Type: AWS::IAM::Role
-    Properties:
-      AssumeRolePolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Effect: Allow
-            Principal:
-              Service: glue.amazonaws.com
-            Action: sts:AssumeRole
-      ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
-      Policies:
-        - PolicyName: GlueS3ExecutionPolicy
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-            - Effect: Allow
-              Action:
-                - s3:GetObject
-              Resource:
-                - !Sub 'arn:aws:s3:::${S3BUCKETArtifactory}'
-                - !Sub 'arn:aws:s3:::${S3BUCKETArtifactory}/*'
-            - Effect: Allow
-              Action:
-                - s3:GetObject
-                - s3:ListBucket
-                - s3:PutObject
-                - s3:DeleteObject
-              Resource:
-                - !Sub 'arn:aws:s3:::${S3Bucket}'
-                - !Sub 'arn:aws:s3:::${S3Bucket}/*'
-        - PolicyName: CloudWatchLogsAccess
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - logs:CreateLogGroup
-                  - logs:CreateLogStream
-                  - logs:PutLogEvents
-                Resource:
-                  - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws-glue/jobs/*'
-        - PolicyName: GlueVPCAccess
-          PolicyDocument:
-            Version: '2012-10-17'
-            Statement:
-              - Effect: Allow
-                Action:
-                  - ec2:CreateNetworkInterface
-                  - ec2:DescribeNetworkInterfaces
-                  - ec2:DeleteNetworkInterface
-                  - ec2:DescribeVpcs
-                  - ec2:DescribeSubnets
-                  - ec2:DescribeSecurityGroups
-                Resource: '*'
-      RoleName: !Sub 'execute-query-glue-role-${Environment}'
+      TemplateURL: !Sub "https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-step-functions.yaml"
+      Parameters:
+        Environment: !Ref Environment
+        S3Bucket: !Ref S3Bucket
+        GTFSPreprocessorFunction: !GetAtt LambdaStack.Outputs.GTFSPreprocessorFunction
+        CheckCapacityFunction: !GetAtt LambdaStack.Outputs.CheckCapacityFunction
+        ReleaseCapacityFunction: !GetAtt LambdaStack.Outputs.ReleaseCapacityFunction
+        TriggerNextExecutionFunction: !GetAtt LambdaStack.Outputs.TriggerNextExecutionFunction
+        MacroGeneratorJob: !GetAtt GlueStack.Outputs.MacroGeneratorJob
+        MacroStopsGeneratorJob: !GetAtt GlueStack.Outputs.MacroStopsGeneratorJob
+        ProcessingStateTableName: !GetAtt DynamoDBStack.Outputs.ProcessingStateTableName
+        StateMachineArnParamName: !GetAtt ParamStoreStack.Outputs.StateMachineArnParameter
+        StateMachineUpdaterFunctionName: !GetAtt LambdaStack.Outputs.StateMachineUpdaterFunction
+      TimeoutInMinutes: 15
 
 Outputs:
+  # Outputs consolidados de los stacks anidados
   GTFSPreprocessorFunction:
     Description: Name of the GTFS Preprocessor Lambda function
-    Value: !Ref GTFSPreprocessorFunction
+    Value: !GetAtt LambdaStack.Outputs.GTFSPreprocessorFunction
   MacroGeneratorJob:
     Description: Name of the Macro Generator Glue job
-    Value: !Ref MacroGeneratorJob
+    Value: !GetAtt GlueStack.Outputs.MacroGeneratorJob
   MacroStopsGeneratorJob:
     Description: Name of the Macro Stops Generator Glue job
-    Value: !Ref MacroStopsGeneratorJob
+    Value: !GetAtt GlueStack.Outputs.MacroStopsGeneratorJob
   GlueJobRole:
     Description: IAM Role for Glue jobs
-    Value: !GetAtt ExecuteQueryGlueRole.Arn
+    Value: !GetAtt GlueStack.Outputs.GlueJobRole
   StateMachine:
     Description: ARN of the Step Functions state machine
-    Value: !Ref GTFSProcessingStateMachine
+    Value: !GetAtt StepFunctionsStack.Outputs.StateMachine
   ProcessingStateTable:
     Description: Name of the DynamoDB table for processing state
-    Value: !Ref ProcessingStateTable
+    Value: !GetAtt DynamoDBStack.Outputs.ProcessingStateTableName
   CapacityControlTable:
     Description: Name of the DynamoDB table for capacity control
-    Value: !Ref CapacityControlTable
+    Value: !GetAtt DynamoDBStack.Outputs.CapacityControlTableName
   MaxConcurrentRuns:
     Description: Maximum number of concurrent runs for Glue jobs
     Value: !Ref MaxConcurrentRuns

@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script unificado para empaquetar funciones Lambda y sus capas
-# Este archivo reemplaza la versión anterior de package.sh
+# Versión corregida para compatibilidad con versiones recientes de Python
 
 # Cargar utilidades de formato
 source "$(dirname "$0")/../utils/format.sh"
@@ -15,7 +15,7 @@ fi
 
 BUCKET="$1"
 REGION="$2"
-ENV="${3:-dev}"  # Ambiente para la identificación de las capas
+ENV="${3:-dev}" # Ambiente para la identificación de las capas
 
 section_header "EMPAQUETADO DE FUNCIONES LAMBDA"
 info_message "Bucket: ${BUCKET}"
@@ -37,7 +37,7 @@ LAMBDA_DIRS=(
 # Definir nombres de archivos ZIP (mantener la misma estructura que las carpetas)
 ZIP_NAMES=(
     "pre_processor.zip"
-    "check_capacity.zip" 
+    "check_capacity.zip"
     "release_capacity.zip"
     "trigger_next.zip"
 )
@@ -50,7 +50,7 @@ info_message "Directorio de salida para archivos ZIP: ${LAMBDA_OUTPUT_DIR}"
 # Crear directorio para guardar ARNs de las capas
 mkdir -p "${PROJECT_ROOT}/layer_arns"
 LAYER_ARNS_FILE="${PROJECT_ROOT}/layer_arns/${ENV}_layer_arns.env"
-> $LAYER_ARNS_FILE  # Crear/vaciar archivo
+>$LAYER_ARNS_FILE # Crear/vaciar archivo
 
 # Asegurar que el número de elementos sea el mismo
 if [ ${#LAMBDA_DIRS[@]} -ne ${#ZIP_NAMES[@]} ]; then
@@ -64,75 +64,76 @@ for i in "${!LAMBDA_DIRS[@]}"; do
     ZIP_NAME="${ZIP_NAMES[$i]}"
     OUTPUT_PATH="${LAMBDA_OUTPUT_DIR}/${ZIP_NAME}"
     FUNCTION_NAME=$(basename ${LAMBDA_DIR})
-    
+
     section_header "EMPAQUETANDO ${FUNCTION_NAME}"
     info_message "Función: ${LAMBDA_DIR}"
     info_message "Archivo ZIP: ${OUTPUT_PATH}"
-    
+
     # Verificar que el directorio existe
     if [ ! -d "${LAMBDA_DIR}" ]; then
         error_message "El directorio ${LAMBDA_DIR} no existe"
         continue
     fi
-    
+
     # Verificar que el archivo lambda_function.py existe
     if [ ! -f "${LAMBDA_DIR}/lambda_function.py" ]; then
         error_message "No se encontró el archivo lambda_function.py en ${LAMBDA_DIR}"
         continue
     fi
-    
+
     # 1. CREAR CAPA LAMBDA PARA LA FUNCIÓN
     section_header "CREANDO CAPA PARA ${FUNCTION_NAME}"
-    
+
     LAYER_NAME="${FUNCTION_NAME}-layer-${ENV}"
     LAYER_ZIP="${LAMBDA_OUTPUT_DIR}/${FUNCTION_NAME}_layer.zip"
-    
-    # Determinar dependencias según la función
+
+    # Determinar dependencias según la función - CORREGIDO para usar versiones disponibles
     DEPENDENCIES=""
     case "${FUNCTION_NAME}" in
-        pre_processor)
-            DEPENDENCIES="boto3 pandas==1.5.3 psutil"
-            ;;
-        *)
-            DEPENDENCIES="boto3"
-            ;;
+    pre_processor)
+        # Usa pandas sin especificar versión exacta
+        DEPENDENCIES="boto3 pandas psutil"
+        ;;
+    *)
+        DEPENDENCIES="boto3"
+        ;;
     esac
-    
+
     # Crear directorio temporal para la capa
     LAYER_TEMP_DIR=$(mktemp -d)
     mkdir -p "${LAYER_TEMP_DIR}/python"
-    
-    # Instalar dependencias en la capa
+
+    # Instalar dependencias en la capa - CORREGIDO para usar --prefer-binary
     info_message "Instalando dependencias para capa: ${DEPENDENCIES}"
-    pip install ${DEPENDENCIES} -t "${LAYER_TEMP_DIR}/python" --no-deps --only-binary=:all:
+    pip install ${DEPENDENCIES} -t "${LAYER_TEMP_DIR}/python" --prefer-binary
     INSTALL_RESULT=$?
-    
+
     if [ $INSTALL_RESULT -eq 0 ]; then
         # Comprimir capa
         info_message "Creando archivo ZIP para capa..."
         (cd "${LAYER_TEMP_DIR}" && zip -r "${LAYER_ZIP}" .)
         LAYER_ZIP_RESULT=$?
-        
+
         if [ $LAYER_ZIP_RESULT -eq 0 ]; then
             # Subir capa a S3
             info_message "Subiendo capa a S3..."
             S3_LAYER_KEY="lambda_layers/${ENV}/${FUNCTION_NAME}_layer.zip"
             aws s3 cp "${LAYER_ZIP}" "s3://${BUCKET}/${S3_LAYER_KEY}" --region "${REGION}"
-            
+
             # Publicar capa Lambda
             info_message "Publicando capa Lambda..."
             LAYER_ARN=$(aws lambda publish-layer-version \
                 --layer-name "${LAYER_NAME}" \
                 --description "Dependencias para ${FUNCTION_NAME}" \
-                --compatible-runtimes python3.9 \
+                --compatible-runtimes python3.8 python3.9 python3.10 python3.11 python3.12 \
                 --content S3Bucket="${BUCKET}",S3Key="${S3_LAYER_KEY}" \
                 --region "${REGION}" \
                 --query 'LayerVersionArn' \
                 --output text)
-            
+
             # Guardar ARN en archivo
-            echo "${FUNCTION_NAME^^}_LAYER_ARN=${LAYER_ARN}" >> $LAYER_ARNS_FILE
-            
+            echo "${FUNCTION_NAME^^}_LAYER_ARN=${LAYER_ARN}" >>$LAYER_ARNS_FILE
+
             success_message "Capa para ${FUNCTION_NAME} publicada: ${LAYER_ARN}"
         else
             error_message "Error al crear archivo ZIP para capa"
@@ -140,29 +141,29 @@ for i in "${!LAMBDA_DIRS[@]}"; do
     else
         error_message "Error al instalar dependencias para la capa"
     fi
-    
+
     # Limpiar directorio temporal de la capa
     rm -rf "${LAYER_TEMP_DIR}"
-    
+
     # 2. EMPAQUETAR FUNCIÓN LAMBDA (LIGERA, SIN DEPENDENCIAS)
     section_header "EMPAQUETANDO FUNCIÓN ${FUNCTION_NAME}"
-    
+
     # Crear ZIP directamente con solo el código (sin dependencias)
     info_message "Creando archivo ZIP ligero..."
     (cd "${LAMBDA_DIR}" && zip -r "${OUTPUT_PATH}" .)
     ZIP_RESULT=$?
-    
+
     if [ $ZIP_RESULT -eq 0 ]; then
         # Subir archivo ZIP a S3
         info_message "Subiendo archivo ZIP a S3..."
         aws s3 cp "${OUTPUT_PATH}" "s3://${BUCKET}/lambda/${ZIP_NAME}" --region ${REGION}
         S3_RESULT=$?
-        
+
         show_result $S3_RESULT "Archivo ZIP subido a s3://${BUCKET}/lambda/${ZIP_NAME}" "Error al subir archivo ZIP"
     else
         error_message "Error al crear archivo ZIP"
     fi
-    
+
     info_message "Limpieza completa"
 done
 

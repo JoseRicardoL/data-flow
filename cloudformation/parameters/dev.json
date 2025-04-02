@@ -1,0 +1,27 @@
+{
+	"environment": "dev",
+	"region": "eu-west-1",
+	"bucket": "mado-gtfs-dev-eu-west-1-992807582431-bronze",
+	"artifactBucket": "mado-gtfs-dev-eu-west-1-992807582431-artifactory",
+	"glueJobConfig": {
+		"workerType": "G.1X",
+		"numberOfWorkers": 2,
+		"timeout": 2880
+	},
+	"vpcConfig": {
+		"vpcId": "vpc-0c08a659044ff2af9",
+		"subnets": "subnet-049f120aaf5d32612,subnet-0b04c2389ff3bf39f",
+		"securityGroupId": "sg-088dd5fc36a36dea0",
+		"routeTableId": "rtb-0de786846b7f433d8"
+	},
+	"layerArns": {
+		"preProcessor": "${PRE_PROCESSOR_LAYER_ARN:-}",
+		"checkCapacity": "${CHECK_CAPACITY_LAYER_ARN:-}",
+		"releaseCapacity": "${RELEASE_CAPACITY_LAYER_ARN:-}",
+		"triggerNext": "${TRIGGER_NEXT_LAYER_ARN:-}"
+	},
+	"concurrency": {
+		"maxRuns": 25,
+		"maxStateMachines": 5
+	}
+}

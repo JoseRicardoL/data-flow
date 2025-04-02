@@ -1,0 +1,65 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "DynamoDB Resources for GTFS Processing"
+
+Parameters:
+  Environment:
+    Type: String
+    Description: Deployment environment (dev, test, prod)
+
+Resources:
+  # DynamoDB para control de concurrencia y estado
+  ProcessingStateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "GTFSProcessingState-${Environment}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+  # DynamoDB para control de capacidad
+  CapacityControlTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "GTFSCapacityControl-${Environment}"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      Tags:
+        - Key: Environment
+          Value: !Ref Environment
+
+Outputs:
+  ProcessingStateTableName:
+    Description: Name of the DynamoDB table for processing state
+    Value: !Ref ProcessingStateTable
+    Export:
+      Name: !Sub "${AWS::StackName}-ProcessingStateTableName"
+
+  ProcessingStateTableArn:
+    Description: ARN of the DynamoDB table for processing state
+    Value: !GetAtt ProcessingStateTable.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-ProcessingStateTableArn"
+
+  CapacityControlTableName:
+    Description: Name of the DynamoDB table for capacity control
+    Value: !Ref CapacityControlTable
+    Export:
+      Name: !Sub "${AWS::StackName}-CapacityControlTableName"
+
+  CapacityControlTableArn:
+    Description: ARN of the DynamoDB table for capacity control
+    Value: !GetAtt CapacityControlTable.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-CapacityControlTableArn"

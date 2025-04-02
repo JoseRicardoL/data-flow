@@ -1,17 +1,22 @@
 include .env
 
-.PHONY: validate deploy clean upload prepare test logs download package discover-gtfs process-gtfs execute-gtfs monitor-gtfs report-gtfs batch-gtfs reset-failed help statemachine-register statemachine-start statemachine-summary statemachine-reset
+.PHONY: validate deploy clean upload upload-nested-stacks prepare test logs download package discover-gtfs process-gtfs execute-gtfs monitor-gtfs report-gtfs batch-gtfs reset-failed help statemachine-register statemachine-start statemachine-summary statemachine-reset
 
 validate:
 	./scripts/deploy/validate.sh $(REGION)
 
 upload:
-	./scripts/deploy/upload.sh $(LOCAL_SCRIPTS_PATH)/oracle_extraction.py $(S3_BUCKET) $(GLUE_SCRIPTS_PATH)
+	@echo "Subiendo scripts a S3..."
+	./scripts/deploy/upload.sh $(LOCAL_SCRIPTS_PATH)/macro_generator/glue_script.py $(S3_BUCKET) scripts/glue/macro_generator/glue_script.py
+	./scripts/deploy/upload.sh $(LOCAL_SCRIPTS_PATH)/macro_stops_generator/glue_script.py $(S3_BUCKET) scripts/glue/macro_stops_generator/glue_script.py
+
+upload-nested-stacks:
+	./scripts/deploy/upload_nested_stacks.sh $(ARTIFACTORY_BUCKET) $(REGION)
 
 package:
 	./scripts/deploy/package.sh $(S3_BUCKET) $(REGION) $(ENV)
 
-deploy: upload package
+deploy: upload package upload-nested-stacks
 	./scripts/deploy/deploy.sh $(STACK_NAME) $(REGION) $(ENV) $(S3_BUCKET) $(GLUE_SCRIPTS_PATH)
 
 clean:
@@ -103,6 +108,7 @@ help:
 	@echo "  make download                - Descargar resultados"
 	@echo "  make clean                   - Limpiar recursos"
 	@echo "  make package                 - Empaquetar y subir todas las funciones Lambda y sus capas"
+	@echo "  make upload-nested-stacks    - Subir templates de nested stacks a S3"
 	@echo ""
 	@echo "Comandos para procesamiento GTFS por lotes:"
 	@echo "  make discover-gtfs           - Descubrir combinaciones de datos GTFS"

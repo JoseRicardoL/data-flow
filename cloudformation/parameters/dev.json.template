@@ -1,0 +1,27 @@
+{
+	"environment": "${ENV}",
+	"region": "${REGION}",
+	"bucket": "${S3_BUCKET}",
+	"artifactBucket": "${ARTIFACTORY_BUCKET}",
+	"glueJobConfig": {
+		"workerType": "G.1X",
+		"numberOfWorkers": 2,
+		"timeout": 2880
+	},
+	"vpcConfig": {
+		"vpcId": "${VPC_ID}",
+		"subnets": "${VPC_SUBNETS}",
+		"securityGroupId": "${SECURITY_GROUP_ID}",
+		"routeTableId": "${ROUTE_TABLE_ID}"
+	},
+	"layerArns": {
+		"preProcessor": "${PRE_PROCESSOR_LAYER_ARN:-}",
+		"checkCapacity": "${CHECK_CAPACITY_LAYER_ARN:-}",
+		"releaseCapacity": "${RELEASE_CAPACITY_LAYER_ARN:-}",
+		"triggerNext": "${TRIGGER_NEXT_LAYER_ARN:-}"
+	},
+	"concurrency": {
+		"maxRuns": 25,
+		"maxStateMachines": 5
+	}
+}

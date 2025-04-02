@@ -8,6 +8,7 @@ env/
 venv/
 ENV/
 .venv/
+*.env
 
 # ====== Distribución y Empaquetado ======
 build/
@@ -23,6 +24,7 @@ pip-wheel-metadata/
 *.log
 *.txt
 *.csv
+*.zip
 
 test/logs/
 test/output/

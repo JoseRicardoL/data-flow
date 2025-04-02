@@ -1,0 +1,153 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Glue Jobs for GTFS Data Processing"
+
+Parameters:
+  S3Bucket:
+    Type: String
+    Description: S3 Bucket for scripts and data
+  S3BUCKETArtifactory:
+    Type: String
+    Description: S3 Bucket for artifactory resources
+  Environment:
+    Type: String
+    Description: Deployment environment (dev, test, prod)
+  WorkerType:
+    Type: String
+    Description: Worker type for Glue jobs
+    Default: G.1X
+  NumberOfWorkers:
+    Type: String
+    Description: Number of workers for Glue jobs
+    Default: "2"
+  MaxConcurrentRuns:
+    Type: Number
+    Description: Maximum number of concurrent runs for Glue jobs
+    Default: 25
+  GlueJobName:
+    Type: String
+    Description: Base name for Glue jobs
+
+Resources:
+  # Trabajo Glue para MacroGenerator
+  MacroGeneratorJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Sub "MacroGenerator-${Environment}"
+      Role: !GetAtt ExecuteQueryGlueRole.Arn
+      DefaultArguments:
+        "--job-language": "python"
+        "--continuous-log-logGroup": "/aws-glue/jobs/logs-dev"
+        "--enable-continuous-cloudwatch-log": "true"
+        "--bronze_bucket": !Ref S3Bucket
+        "--additional-python-modules": "psutil"
+      ExecutionProperty:
+        MaxConcurrentRuns: !Ref MaxConcurrentRuns
+      GlueVersion: "4.0"
+      Command:
+        Name: glueetl
+        PythonVersion: "3"
+        ScriptLocation: !Sub "s3://${S3Bucket}/scripts/glue/macro_generator/glue_script.py"
+      WorkerType: !Ref WorkerType
+      NumberOfWorkers: !Ref NumberOfWorkers
+      Timeout: 2880
+
+  # Trabajo Glue para MacroStopsGenerator
+  MacroStopsGeneratorJob:
+    Type: AWS::Glue::Job
+    Properties:
+      Name: !Sub "MacroStopsGenerator-${Environment}"
+      Role: !GetAtt ExecuteQueryGlueRole.Arn
+      DefaultArguments:
+        "--job-language": "python"
+        "--continuous-log-logGroup": "/aws-glue/jobs/logs-dev"
+        "--enable-continuous-cloudwatch-log": "true"
+        "--bronze_bucket": !Ref S3Bucket
+        "--additional-python-modules": "psutil"
+      ExecutionProperty:
+        MaxConcurrentRuns: !Ref MaxConcurrentRuns
+      GlueVersion: "4.0"
+      Command:
+        Name: glueetl
+        PythonVersion: "3"
+        ScriptLocation: !Sub "s3://${S3Bucket}/scripts/glue/macro_stops_generator/glue_script.py"
+      WorkerType: !Ref WorkerType
+      NumberOfWorkers: !Ref NumberOfWorkers
+      Timeout: 2880
+
+  # Rol IAM para los trabajos Glue (compartido)
+  ExecuteQueryGlueRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: glue.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSGlueServiceRole
+      Policies:
+        - PolicyName: GlueS3ExecutionPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${S3BUCKETArtifactory}"
+                  - !Sub "arn:aws:s3:::${S3BUCKETArtifactory}/*"
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:ListBucket
+                  - s3:PutObject
+                  - s3:DeleteObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${S3Bucket}"
+                  - !Sub "arn:aws:s3:::${S3Bucket}/*"
+        - PolicyName: CloudWatchLogsAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws-glue/jobs/*"
+        - PolicyName: GlueVPCAccess
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ec2:CreateNetworkInterface
+                  - ec2:DescribeNetworkInterfaces
+                  - ec2:DeleteNetworkInterface
+                  - ec2:DescribeVpcs
+                  - ec2:DescribeSubnets
+                  - ec2:DescribeSecurityGroups
+                Resource: "*"
+      RoleName: !Sub "execute-query-glue-role-${Environment}"
+
+Outputs:
+  MacroGeneratorJob:
+    Description: Name of the Macro Generator Glue job
+    Value: !Ref MacroGeneratorJob
+    Export:
+      Name: !Sub "${AWS::StackName}-MacroGeneratorJob"
+
+  MacroStopsGeneratorJob:
+    Description: Name of the Macro Stops Generator Glue job
+    Value: !Ref MacroStopsGeneratorJob
+    Export:
+      Name: !Sub "${AWS::StackName}-MacroStopsGeneratorJob"
+
+  GlueJobRole:
+    Description: ARN of the IAM role for Glue jobs
+    Value: !GetAtt ExecuteQueryGlueRole.Arn
+    Export:
+      Name: !Sub "${AWS::StackName}-GlueJobRole"

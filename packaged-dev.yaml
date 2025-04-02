@@ -1,0 +1,226 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Glue Job for GTFS Data Processing with Nested Stacks
+Parameters:
+  S3Bucket:
+    Type: String
+    Description: S3 Bucket for scripts and data
+  S3BUCKETArtifactory:
+    Type: String
+    Description: S3 Bucket for artifactory resources
+  GlueJobName:
+    Type: String
+  Environment:
+    Type: String
+  WorkerType:
+    Type: String
+  NumberOfWorkers:
+    Type: String
+  MaxConcurrentRuns:
+    Type: Number
+    Description: Maximum number of concurrent runs for Glue jobs
+    Default: 25
+  MaxConcurrentStateMachines:
+    Type: Number
+    Description: Maximum number of concurrent state machine executions
+    Default: 5
+  LambdaS3KeyPrefix:
+    Type: String
+    Description: S3 key prefix for Lambda function code packages
+    Default: lambda
+  PreProcessorLayerArn:
+    Type: String
+    Description: ARN for the pre_processor Lambda function layer
+    Default: ''
+  CheckCapacityLayerArn:
+    Type: String
+    Description: ARN for the check_capacity Lambda function layer
+    Default: ''
+  ReleaseCapacityLayerArn:
+    Type: String
+    Description: ARN for the release_capacity Lambda function layer
+    Default: ''
+  TriggerNextLayerArn:
+    Type: String
+    Description: ARN for the trigger_next Lambda function layer
+    Default: ''
+Resources:
+  ParamStoreStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL:
+        Fn::Sub: https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-param-store.yaml
+      Parameters:
+        Environment:
+          Ref: Environment
+      TimeoutInMinutes: 10
+  DynamoDBStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL:
+        Fn::Sub: https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-dynamo.yaml
+      Parameters:
+        Environment:
+          Ref: Environment
+      TimeoutInMinutes: 10
+  LambdaStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn:
+    - DynamoDBStack
+    - ParamStoreStack
+    Properties:
+      TemplateURL:
+        Fn::Sub: https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-lambda.yaml
+      Parameters:
+        S3Bucket:
+          Ref: S3Bucket
+        Environment:
+          Ref: Environment
+        LambdaS3KeyPrefix:
+          Ref: LambdaS3KeyPrefix
+        ProcessingStateTableName:
+          Fn::GetAtt:
+          - DynamoDBStack
+          - Outputs.ProcessingStateTableName
+        CapacityControlTableName:
+          Fn::GetAtt:
+          - DynamoDBStack
+          - Outputs.CapacityControlTableName
+        MaxConcurrentStateMachines:
+          Ref: MaxConcurrentStateMachines
+        PreProcessorLayerArn:
+          Ref: PreProcessorLayerArn
+        CheckCapacityLayerArn:
+          Ref: CheckCapacityLayerArn
+        ReleaseCapacityLayerArn:
+          Ref: ReleaseCapacityLayerArn
+        TriggerNextLayerArn:
+          Ref: TriggerNextLayerArn
+        StateMachineArnParamName:
+          Fn::GetAtt:
+          - ParamStoreStack
+          - Outputs.StateMachineArnParameter
+      TimeoutInMinutes: 15
+  GlueStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: DynamoDBStack
+    Properties:
+      TemplateURL:
+        Fn::Sub: https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-glue.yaml
+      Parameters:
+        S3Bucket:
+          Ref: S3Bucket
+        S3BUCKETArtifactory:
+          Ref: S3BUCKETArtifactory
+        Environment:
+          Ref: Environment
+        WorkerType:
+          Ref: WorkerType
+        NumberOfWorkers:
+          Ref: NumberOfWorkers
+        MaxConcurrentRuns:
+          Ref: MaxConcurrentRuns
+        GlueJobName:
+          Ref: GlueJobName
+      TimeoutInMinutes: 15
+  StepFunctionsStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn:
+    - LambdaStack
+    - GlueStack
+    - ParamStoreStack
+    Properties:
+      TemplateURL:
+        Fn::Sub: https://${S3BUCKETArtifactory}.s3.amazonaws.com/cloudformation/nested-stacks/template-step-functions.yaml
+      Parameters:
+        Environment:
+          Ref: Environment
+        S3Bucket:
+          Ref: S3Bucket
+        GTFSPreprocessorFunction:
+          Fn::GetAtt:
+          - LambdaStack
+          - Outputs.GTFSPreprocessorFunction
+        CheckCapacityFunction:
+          Fn::GetAtt:
+          - LambdaStack
+          - Outputs.CheckCapacityFunction
+        ReleaseCapacityFunction:
+          Fn::GetAtt:
+          - LambdaStack
+          - Outputs.ReleaseCapacityFunction
+        TriggerNextExecutionFunction:
+          Fn::GetAtt:
+          - LambdaStack
+          - Outputs.TriggerNextExecutionFunction
+        MacroGeneratorJob:
+          Fn::GetAtt:
+          - GlueStack
+          - Outputs.MacroGeneratorJob
+        MacroStopsGeneratorJob:
+          Fn::GetAtt:
+          - GlueStack
+          - Outputs.MacroStopsGeneratorJob
+        ProcessingStateTableName:
+          Fn::GetAtt:
+          - DynamoDBStack
+          - Outputs.ProcessingStateTableName
+        StateMachineArnParamName:
+          Fn::GetAtt:
+          - ParamStoreStack
+          - Outputs.StateMachineArnParameter
+        StateMachineUpdaterFunctionName:
+          Fn::GetAtt:
+          - LambdaStack
+          - Outputs.StateMachineUpdaterFunction
+      TimeoutInMinutes: 15
+Outputs:
+  GTFSPreprocessorFunction:
+    Description: Name of the GTFS Preprocessor Lambda function
+    Value:
+      Fn::GetAtt:
+      - LambdaStack
+      - Outputs.GTFSPreprocessorFunction
+  MacroGeneratorJob:
+    Description: Name of the Macro Generator Glue job
+    Value:
+      Fn::GetAtt:
+      - GlueStack
+      - Outputs.MacroGeneratorJob
+  MacroStopsGeneratorJob:
+    Description: Name of the Macro Stops Generator Glue job
+    Value:
+      Fn::GetAtt:
+      - GlueStack
+      - Outputs.MacroStopsGeneratorJob
+  GlueJobRole:
+    Description: IAM Role for Glue jobs
+    Value:
+      Fn::GetAtt:
+      - GlueStack
+      - Outputs.GlueJobRole
+  StateMachine:
+    Description: ARN of the Step Functions state machine
+    Value:
+      Fn::GetAtt:
+      - StepFunctionsStack
+      - Outputs.StateMachine
+  ProcessingStateTable:
+    Description: Name of the DynamoDB table for processing state
+    Value:
+      Fn::GetAtt:
+      - DynamoDBStack
+      - Outputs.ProcessingStateTableName
+  CapacityControlTable:
+    Description: Name of the DynamoDB table for capacity control
+    Value:
+      Fn::GetAtt:
+      - DynamoDBStack
+      - Outputs.CapacityControlTableName
+  MaxConcurrentRuns:
+    Description: Maximum number of concurrent runs for Glue jobs
+    Value:
+      Ref: MaxConcurrentRuns
+  MaxConcurrentStateMachines:
+    Description: Maximum number of concurrent state machine executions
+    Value:
+      Ref: MaxConcurrentStateMachines

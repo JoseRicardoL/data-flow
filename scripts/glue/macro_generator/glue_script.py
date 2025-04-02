@@ -1,8 +1,8 @@
 """Procesador de datos GTFS para generar archivos de macro optimizados.
 
 Este módulo procesa datos GTFS (General Transit Feed Specification) para generar
-archivos de relación entre rutas, viajes y shapes, optimizados para visualización 
-y análisis. Implementa técnicas de procesamiento por lotes y optimización de memoria 
+archivos de relación entre rutas, viajes y shapes, optimizados para visualización
+y análisis. Implementa técnicas de procesamiento por lotes y optimización de memoria
 para manejar grandes volúmenes de datos en AWS Glue.
 """
 
