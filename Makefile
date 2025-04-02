@@ -25,26 +25,3 @@ logs:
 
 download:
 	./scripts/deploy/download.sh $(STACK_NAME) $(REGION) $(ENV) $(S3_BUCKET)
-
-.PHONY: local-init local-up local-down local-shell local-jupyter local-run local-verify
-
-local-init:
-	@scripts/local/init.sh
-
-local-up:
-	@scripts/local/up.sh
-
-local-down:
-	@scripts/local/down.sh
-
-local-shell:
-	@scripts/local/shell.sh
-
-local-jupyter:
-	@scripts/local/jupyter.sh
-
-local-run:
-	@scripts/local/run.sh $(SCRIPT) $(INPUT)
-
-local-verify:
-	@scripts/local/verify.sh
