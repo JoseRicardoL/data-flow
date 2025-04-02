@@ -1,0 +1,10 @@
+{
+  "environment": "test",
+  "region": "eu-west-1",
+  "bucket": "madoawststs3gtfseu102",
+  "glueJobConfig": {
+    "workerType": "G.1X",
+    "numberOfWorkers": 2,
+    "timeout": 2880
+  }
+}
