@@ -36,7 +36,7 @@ Parameters:
   PandasLayerArn:
     Type: String
     Description: ARN de la capa de Pandas de AWS
-    Default: "arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1"
+    Default: "arn:aws:lambda:eu-west-1:336392948345:layer:AWSSDKPandas-Python311:20"
 
 
 Resources:

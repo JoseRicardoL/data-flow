@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Script para descubrir todas las combinaciones de datos GTFS en S3.
-Escanea el bucket para encontrar todas las combinaciones de:
-explotación, contrato y versión.
+Script para descubrir combinaciones de datos GTFS en S3
 """
 
 import boto3
@@ -21,131 +19,224 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Lista de tipos de datos GTFS requeridos para el procesamiento completo
+REQUIRED_GTFS_TYPES = ["AGENCY", "ROUTES", "TRIPS", "STOPS", "STOP_TIMES"]
 
-def discover_gtfs_data(bucket_name, output_file="batch_processing/combinations.json"):
+# El tipo GTFS con menos datos normalmente (usado como punto de partida eficiente)
+SEED_GTFS_TYPE = "AGENCY"  # Generalmente AGENCY tiene menos datos/combinaciones
+
+
+def discover_gtfs_combinations(s3_client, bucket_name):
     """
-    Descubre todas las combinaciones únicas de explotación, contrato y versión en S3.
+    Descubre las posibles combinaciones de explotación/contrato/versión
+    utilizando AGENCY como punto de partida (habitualmente tiene menos combinaciones).
 
     Args:
-        bucket_name: Nombre del bucket de S3 a escanear
-        output_file: Archivo de salida para guardar las combinaciones
+        s3_client: Cliente de boto3 para S3
+        bucket_name: Nombre del bucket de S3
 
     Returns:
-        Lista de combinaciones encontradas
+        dict: Mapa de combinaciones potenciales con su estado de validación
     """
-    s3_client = boto3.client("s3")
-    combinations = []
-
     # Patrones para extraer valores
     explotation_pattern = r"explotation=(\d+)"
     contract_pattern = r"contract=(\d+)"
     version_pattern = r"version=([^/]+)"
 
-    # Lista de tipos de datos GTFS a buscar para validar combinaciones
-    gtfs_types = ["AGENCY", "ROUTES", "TRIPS", "STOPS", "STOP_TIMES"]
+    logger.info(f"Explorando combinaciones utilizando {SEED_GTFS_TYPE} como semilla")
 
-    logger.info(f"Iniciando escaneo de bucket: {bucket_name}")
+    # Estructura para almacenar combinaciones y su estado
+    combinations = {}
 
+    # Explorar el tipo GTFS semilla para encontrar combinaciones potenciales
     try:
-        # Primero listar todos los tipos de datos GTFS disponibles
+        # Listar todas las explotaciones para el tipo semilla
+        prefix = f"GTFS/{SEED_GTFS_TYPE}/"
         response = s3_client.list_objects_v2(
-            Bucket=bucket_name, Prefix="GTFS/", Delimiter="/"
+            Bucket=bucket_name, Prefix=prefix, Delimiter="/"
         )
 
         if "CommonPrefixes" not in response:
-            logger.error(
-                f"No se encontraron directorios GTFS en el bucket {bucket_name}"
+            logger.warning(f"No se encontraron datos para {SEED_GTFS_TYPE}")
+            return combinations
+
+        # Procesar cada explotación encontrada
+        for explotation_prefix in response["CommonPrefixes"]:
+            explotation_path = explotation_prefix["Prefix"]
+            explotation_match = re.search(explotation_pattern, explotation_path)
+
+            if not explotation_match:
+                continue
+
+            explotation = explotation_match.group(1)
+
+            # Listar contratos para esta explotación
+            contract_response = s3_client.list_objects_v2(
+                Bucket=bucket_name, Prefix=explotation_path, Delimiter="/"
             )
-            return []
 
-        # Procesar cada tipo de datos GTFS
-        discovered_prefixes = set()
+            if "CommonPrefixes" not in contract_response:
+                continue
 
-        for prefix in response["CommonPrefixes"]:
-            gtfs_type = prefix["Prefix"].split("/")[1]
-            logger.info(f"Escaneando tipo de datos GTFS: {gtfs_type}")
+            for contract_prefix in contract_response["CommonPrefixes"]:
+                contract_path = contract_prefix["Prefix"]
+                contract_match = re.search(contract_pattern, contract_path)
 
-            # Listar todas las explotaciones para este tipo
-            try:
-                explotation_response = s3_client.list_objects_v2(
-                    Bucket=bucket_name, Prefix=f"GTFS/{gtfs_type}/", Delimiter="/"
-                )
-
-                if "CommonPrefixes" not in explotation_response:
+                if not contract_match:
                     continue
 
-                for explotation_prefix in explotation_response["CommonPrefixes"]:
-                    explotation_path = explotation_prefix["Prefix"]
-                    explotation_match = re.search(explotation_pattern, explotation_path)
+                contract = contract_match.group(1)
 
-                    if not explotation_match:
+                # Listar versiones para este contrato
+                version_response = s3_client.list_objects_v2(
+                    Bucket=bucket_name, Prefix=contract_path, Delimiter="/"
+                )
+
+                if "CommonPrefixes" not in version_response:
+                    continue
+
+                for version_prefix in version_response["CommonPrefixes"]:
+                    version_path = version_prefix["Prefix"]
+                    version_match = re.search(version_pattern, version_path)
+
+                    if not version_match:
                         continue
 
-                    explotation = explotation_match.group(1)
+                    version = version_match.group(1)
 
-                    # Listar todos los contratos para esta explotación
-                    contract_response = s3_client.list_objects_v2(
-                        Bucket=bucket_name, Prefix=explotation_path, Delimiter="/"
-                    )
+                    # Verificar que el archivo principal de AGENCY existe
+                    agency_file = f"{version_path}agency.txt"
+                    try:
+                        s3_client.head_object(Bucket=bucket_name, Key=agency_file)
 
-                    if "CommonPrefixes" not in contract_response:
+                        # Agregar esta combinación potencial
+                        combo_key = f"{explotation}_{contract}_{version}"
+                        combinations[combo_key] = {
+                            "P_EMPRESA": explotation,
+                            "P_CONTR": contract,
+                            "P_VERSION": version,
+                            "valid_types": {
+                                SEED_GTFS_TYPE
+                            },  # Marcamos el tipo semilla como válido
+                            "missing_types": set(),
+                        }
+
+                    except Exception:
+                        # No existe el archivo agency.txt, saltamos esta combinación
                         continue
 
-                    for contract_prefix in contract_response["CommonPrefixes"]:
-                        contract_path = contract_prefix["Prefix"]
-                        contract_match = re.search(contract_pattern, contract_path)
+    except Exception as e:
+        logger.error(f"Error explorando combinaciones iniciales: {str(e)}")
 
-                        if not contract_match:
-                            continue
+    logger.info(f"Descubiertas {len(combinations)} combinaciones potenciales")
+    return combinations
 
-                        contract = contract_match.group(1)
 
-                        # Listar todas las versiones para este contrato
-                        version_response = s3_client.list_objects_v2(
-                            Bucket=bucket_name, Prefix=contract_path, Delimiter="/"
-                        )
+def validate_combinations(s3_client, bucket_name, combinations):
+    """
+    Valida si las combinaciones potenciales tienen todos los archivos GTFS requeridos.
 
-                        if "CommonPrefixes" not in version_response:
-                            continue
+    Args:
+        s3_client: Cliente de boto3 para S3
+        bucket_name: Nombre del bucket de S3
+        combinations: Diccionario de combinaciones potenciales
 
-                        for version_prefix in version_response["CommonPrefixes"]:
-                            version_path = version_prefix["Prefix"]
-                            version_match = re.search(version_pattern, version_path)
+    Returns:
+        dict: Mapa actualizado de combinaciones con estado de validación
+    """
+    if not combinations:
+        return {}
 
-                            if not version_match:
-                                continue
+    # Explorar los tipos GTFS restantes para validar cada combinación
+    for gtfs_type in [t for t in REQUIRED_GTFS_TYPES if t != SEED_GTFS_TYPE]:
+        logger.info(f"Validando archivos para tipo GTFS: {gtfs_type}")
 
-                            version = version_match.group(1)
+        for combo_key, combo_data in list(combinations.items()):
+            explotation = combo_data["P_EMPRESA"]
+            contract = combo_data["P_CONTR"]
+            version = combo_data["P_VERSION"]
 
-                            # Verificar que existe al menos un archivo en este directorio
-                            check_response = s3_client.list_objects_v2(
-                                Bucket=bucket_name, Prefix=version_path, MaxKeys=1
-                            )
+            # Verificar si existe el archivo para este tipo GTFS
+            file_path = f"GTFS/{gtfs_type}/explotation={explotation}/contract={contract}/version={version}/{gtfs_type.lower()}.txt"
 
-                            if "Contents" not in check_response:
-                                continue
+            try:
+                s3_client.head_object(Bucket=bucket_name, Key=file_path)
+                # Marcar este tipo como válido para esta combinación
+                combo_data["valid_types"].add(gtfs_type)
+            except Exception:
+                # Archivo no encontrado, marcar como faltante
+                combo_data["missing_types"].add(gtfs_type)
 
-                            # Registrar esta combinación para su procesamiento
-                            combination_key = f"{explotation}_{contract}_{version}"
-                            if combination_key not in discovered_prefixes:
-                                discovered_prefixes.add(combination_key)
-                                combinations.append(
-                                    {
-                                        "P_EMPRESA": explotation,
-                                        "P_CONTR": contract,
-                                        "P_VERSION": version,
-                                        "status": "pending",
-                                        "discovery_time": datetime.now().isoformat(),
-                                        "gtfs_type": gtfs_type,
-                                    }
-                                )
-                                logger.info(
-                                    f"Descubierta combinación: E={explotation}, C={contract}, V={version}"
-                                )
+    # Filtrar solo las combinaciones válidas (que tienen todos los tipos requeridos)
+    valid_combinations = {}
+    for combo_key, combo_data in combinations.items():
+        if len(combo_data["valid_types"]) == len(REQUIRED_GTFS_TYPES):
+            # Esta combinación tiene todos los tipos requeridos
+            explotation = combo_data["P_EMPRESA"]
+            contract = combo_data["P_CONTR"]
+            version = combo_data["P_VERSION"]
 
-            except Exception as e:
-                logger.error(f"Error al procesar {gtfs_type}: {str(e)}")
-                continue
+            valid_combinations[combo_key] = {
+                "P_EMPRESA": explotation,
+                "P_CONTR": contract,
+                "P_VERSION": version,
+                "status": "pending",
+                "discovery_time": datetime.now().isoformat(),
+                "gtfs_types": list(combo_data["valid_types"]),
+            }
+            logger.info(
+                f"Combinación válida: E={explotation}, C={contract}, V={version}"
+            )
+        else:
+            # Loguear las combinaciones inválidas por falta de archivos
+            missing = combo_data["missing_types"]
+            explotation = combo_data["P_EMPRESA"]
+            contract = combo_data["P_CONTR"]
+            version = combo_data["P_VERSION"]
+            logger.warning(
+                f"Combinación incompleta (faltan archivos): E={explotation}, C={contract}, V={version}. "
+                f"Archivos faltantes: {', '.join(missing)}"
+            )
+
+    return valid_combinations
+
+
+def discover_gtfs_data(
+    bucket_name, region="eu-west-1", output_file="batch_processing/combinations.json"
+):
+    """
+    Descubre todas las combinaciones válidas de explotación, contrato y versión en S3,
+    utilizando un enfoque optimizado.
+
+    Args:
+        bucket_name: Nombre del bucket de S3 a escanear
+        region: Región AWS donde está el bucket
+        output_file: Archivo de salida para guardar las combinaciones
+
+    Returns:
+        Lista de combinaciones encontradas
+    """
+    logger.info(
+        f"Iniciando descubrimiento optimizado en bucket: {bucket_name}, región: {region}"
+    )
+
+    s3_client = boto3.client("s3", region_name=region)
+
+    try:
+        # Paso 1: Descubrir combinaciones potenciales usando el tipo semilla
+        potential_combinations = discover_gtfs_combinations(s3_client, bucket_name)
+
+        if not potential_combinations:
+            logger.warning("No se encontraron combinaciones potenciales")
+            return []
+
+        # Paso 2: Validar combinaciones y filtrar las que tienen todos los archivos requeridos
+        valid_combinations = validate_combinations(
+            s3_client, bucket_name, potential_combinations
+        )
+
+        # Convertir el diccionario a lista para el formato de salida
+        combinations_list = list(valid_combinations.values())
 
         # Crear directorio de salida si no existe
         os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -153,19 +244,20 @@ def discover_gtfs_data(bucket_name, output_file="batch_processing/combinations.j
         # Guardar resultado en archivo JSON
         with open(output_file, "w") as f:
             result = {
-                "combinations": combinations,
-                "total": len(combinations),
+                "combinations": combinations_list,
+                "total": len(combinations_list),
                 "timestamp": datetime.now().isoformat(),
                 "bucket": bucket_name,
+                "region": region,
             }
             json.dump(result, f, indent=2)
 
         logger.info(
-            f"Descubrimiento completado: {len(combinations)} combinaciones válidas"
+            f"Descubrimiento completado: {len(combinations_list)} combinaciones válidas"
         )
         logger.info(f"Resultados guardados en: {output_file}")
 
-        return combinations
+        return combinations_list
 
     except Exception as e:
         logger.error(f"Error durante el descubrimiento: {str(e)}")
@@ -175,9 +267,12 @@ def discover_gtfs_data(bucket_name, output_file="batch_processing/combinations.j
 # Si se ejecuta directamente
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Descubrir combinaciones de datos GTFS en S3"
+        description="Descubrir combinaciones de datos GTFS en S3 de manera optimizada"
     )
     parser.add_argument("bucket", help="Nombre del bucket S3")
+    parser.add_argument(
+        "--region", default="eu-west-1", help="Región AWS (por defecto: eu-west-1)"
+    )
     parser.add_argument(
         "--output",
         "-o",
@@ -186,4 +281,4 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    discover_gtfs_data(args.bucket, args.output)
+    discover_gtfs_data(args.bucket, args.region, args.output)

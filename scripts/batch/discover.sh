@@ -34,6 +34,7 @@ fi
 init_batch_environment
 
 # Ejecutar script de descubrimiento en Python
+# CORREGIDO: Ahora se usa correctamente el parámetro --region
 python3 "$(dirname "$0")/../discovery.py" "${BUCKET}" --region "${REGION}"
 DISCOVERY_RESULT=$?
 

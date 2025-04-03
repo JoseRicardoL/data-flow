@@ -15,8 +15,8 @@
 		"routeTableId": "rtb-0de786846b7f433d8"
 	},
 	"layerArns": {
-		"preProcessor": "arn:aws:lambda:eu-west-1:992807582431:layer:pre_processor-layer-dev:19",
-		"pandasLayer": "arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1"
+		"preProcessor": "arn:aws:lambda:eu-west-1:992807582431:layer:pre_processor-layer-dev:21",
+		"pandasLayer": "arn:aws:lambda:eu-west-1:336392948345:layer:AWSSDKPandas-Python311:20"
 	},
 	"concurrency": {
 		"maxRuns": 25,

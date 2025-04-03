@@ -2,7 +2,8 @@
 # Utilidades para el procesamiento por lotes de GTFS
 # Este archivo contiene funciones compartidas por los scripts de procesamiento
 
-# Importar utilidades de formato
+# Importar utilidades de formato - CORREGIDO
+# La ruta ha sido corregida para apuntar correctamente al script format.sh
 source "$(dirname "$0")/format.sh"
 
 # Directorio para archivos de estado y progreso

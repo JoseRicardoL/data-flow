@@ -139,7 +139,7 @@ for i in "${!LAMBDA_DIRS[@]}"; do
 
                 # Para pre_processor, agregar también el ARN fijo de pandas (si es necesario)
                 if [ "${FUNCTION_NAME}" == "pre_processor" ]; then
-                    echo "PANDAS_LAYER_ARN=arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1" >> "$LAYER_ARNS_FILE"
+                    echo "PANDAS_LAYER_ARN=arn:aws:lambda:eu-west-1:336392948345:layer:AWSSDKPandas-Python311:20" >> "$LAYER_ARNS_FILE"
                 fi
 
                 success_message "Capa para ${FUNCTION_NAME} publicada: ${LAYER_ARN}"

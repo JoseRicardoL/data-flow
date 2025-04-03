@@ -1,0 +1,5104 @@
+{
+  "combinations": [
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280210",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280422",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280487",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280542",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280668",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250309",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280765",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280812",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "1",
+      "P_CONTR": "1",
+      "P_VERSION": "20250310_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280905",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.280966",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20240801_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281014",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20240902_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281061",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20241114_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281105",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281149",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20241212_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281193",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20241213_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281237",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281279",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281322",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281366",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281415",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250130_20250214",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281485",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250208",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281569",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250226_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281721",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250308",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281792",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250305_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281841",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250317_20250323",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.281942",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "1",
+      "P_VERSION": "20250317_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282018",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282195",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20241212_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282275",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20241213_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282336",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20241218_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282411",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282605",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282874",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250130_20250214",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282920",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250201_20250208",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.282979",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283026",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250301_20250308",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283083",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "2",
+      "P_VERSION": "20250317_20250323",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283132",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20240701_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283227",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20241114_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283275",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20241115_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283324",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283373",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283420",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283466",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283514",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283561",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250122_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283610",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250130_20250214",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283658",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250301_20250308",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283752",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250312_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283800",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "6",
+      "P_VERSION": "20250317_20250323",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.283872",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20240902_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284000",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20241114_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284052",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284099",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20241212_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284146",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284193",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284239",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284330",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250122_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284378",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250122_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284425",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250130_20250214",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284471",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250226_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284561",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250301_20250308",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284608",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "10",
+      "P_CONTR": "7",
+      "P_VERSION": "20250317_20250323",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284653",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284699",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240610_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284745",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240615_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284791",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240617_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284837",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240624_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284883",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284942",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.284992",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240801_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285038",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240902_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285083",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20240916_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285128",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241001_20241031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285174",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241001_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285220",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241001_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285267",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241007_20241031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285312",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285359",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241104_20241109",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285405",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241125_20241129",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285451",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241125_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285496",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285542",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285873",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285924",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.285982",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286029",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286077",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286124",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250206_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286177",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250207_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286228",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286339",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "14",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286455",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286634",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20241014_20241110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286719",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286802",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20241105_20241105",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.286879",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20241206_20241206",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287084",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287153",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287211",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287271",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287321",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250216_20250223",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287373",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250224_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287435",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250304_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287538",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250307_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287588",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250312_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287637",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "18",
+      "P_CONTR": "1",
+      "P_VERSION": "20250314_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287684",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287788",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287846",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20240801_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.287969",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288045",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288101",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288154",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20241209_20241215",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288206",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288256",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288304",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288352",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288399",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288446",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250227_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288539",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "25",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288587",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20240131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288635",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20240331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288683",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288731",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240501_20240502",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288779",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240722_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288830",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240801_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288878",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20240902_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288944",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241001_20241031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.288996",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241123",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289043",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289100",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241104_20241108",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289156",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241104_20241110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289205",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241227",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289251",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289298",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241202_20241206",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289343",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241209_20241215",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289389",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241213_20241220",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289435",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241223_20241229",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289484",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20241223_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289540",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289586",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289633",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289680",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289727",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289773",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250109_20250110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289819",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250202",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289874",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289920",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.289986",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290079",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290132",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250226_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290182",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290235",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250401_20250407",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290286",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250401_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290336",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250701_20250731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290382",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250801_20250831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290429",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20250901_20250930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290475",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "3",
+      "P_CONTR": "1",
+      "P_VERSION": "20251001_20251031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290522",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290569",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240615",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290614",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290661",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290707",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290758",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240605_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290807",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290854",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290909",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.290971",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291021",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20241125_20241208",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291069",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291118",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20241209_20241213",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291172",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20241209_20241215",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291220",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291268",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291317",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291365",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291420",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291481",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291533",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250106_20250112",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291581",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250113_20250119",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291629",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291677",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250207_20250214",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.291860",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292015",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250226_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292063",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "4",
+      "P_CONTR": "1",
+      "P_VERSION": "20250310_20250316",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292117",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240101_20240331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292164",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240101_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292210",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240501_20240531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292343",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240601_20240629",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292389",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240601_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292436",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240615_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292523",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240615_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292569",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240617_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292615",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240701_20240804",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292660",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240701_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292707",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240701_20240901",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292752",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240801_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292797",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240901_20240920",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292847",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240901_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292897",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20240902_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.292955",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20241001_20241031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293004",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20241028_20241103",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293052",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20241101_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293103",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293152",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20241209_20241215",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293205",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20241216_20241229",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293253",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250101",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293301",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293347",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250214",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293392",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293446",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293501",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293547",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293593",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250224_20250330",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293683",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "5",
+      "P_CONTR": "001",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293729",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293778",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293825",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293871",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293917",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.293984",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294032",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294082",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294131",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250401_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294190",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "51",
+      "P_CONTR": "1",
+      "P_VERSION": "20250401_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294239",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294424",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294473",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241001_20241007",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294565",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241001_20241031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294612",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241028_20241103",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294658",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241101",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294705",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241105",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294752",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241110",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294797",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294844",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241111_20241117",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294892",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241125_20241201",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.294953",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241205",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295006",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295053",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250101",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295099",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250105",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295145",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295190",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295236",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295281",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295334",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295381",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295535",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250210_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295723",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295814",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250224_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295862",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250224_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295908",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250224_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.295972",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250226_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296066",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250227_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296113",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250310",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296165",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296213",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296259",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250328_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296305",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "58",
+      "P_CONTR": "1",
+      "P_VERSION": "20250401_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296351",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296439",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296485",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240601_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296531",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20240728",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296576",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296628",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240701_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296675",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20240702_20240718",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296720",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241101",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296765",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241101_20241107",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296810",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241118_20241124",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296898",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241125_20241201",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.296959",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241202_20241208",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297052",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241209_20241215",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297137",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20241216_20241222",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297209",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297339",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297539",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250106_20250112",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297608",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250120_20250126",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297673",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250127_20250202",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297733",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297795",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20250223",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297854",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297916",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250224_20250302",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.297991",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250226_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298054",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298123",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250310_20250316",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298246",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250331_20250406",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298311",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "6",
+      "P_CONTR": "1",
+      "P_VERSION": "20250428_20250504",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298371",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298491",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298555",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298629",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250306",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298840",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.298909",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250303_20250315",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.299037",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "60",
+      "P_CONTR": "1",
+      "P_VERSION": "20250313_20250320",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.299135",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.299884",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250101_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.299997",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300111",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300190",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300266",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300331",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "3",
+      "P_VERSION": "20250326_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300394",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300536",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300626",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300695",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300763",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250224_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300897",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250224_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.300988",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250225_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301058",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301128",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250324_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301259",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "63",
+      "P_CONTR": "4",
+      "P_VERSION": "20250324_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301328",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240101_20240331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301396",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240101_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301463",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301531",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240317_20240323",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301598",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240317_20240823",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301665",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240401_20240430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301733",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240501_20240531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301802",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240601_20240630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301870",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240701_20240731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.301945",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240701_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302015",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240801_20240831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302084",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240801_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302161",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240818_20240824",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302230",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240821_20250821",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302298",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240901_20240930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302365",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240901_20241130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302435",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20240902_20240919",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302503",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20241001_20241031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302570",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20241101_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302637",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20241201_20241231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302704",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302772",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302850",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.302936",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303007",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303074",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303142",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250202_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303211",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250217_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303281",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250217_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303351",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250226_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303553",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303621",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250317_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303695",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "65",
+      "P_CONTR": "001",
+      "P_VERSION": "20250901_20250930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.303762",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250102",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304039",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250131",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304172",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304304",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304499",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250731",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304566",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250831",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304633",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20250930",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304699",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251031",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304765",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251130",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304831",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250101_20251231",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304896",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250120_20250121",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.304975",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250228",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305042",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250201_20250328",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305114",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250307",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305247",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250301_20250331",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305316",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250317_20250430",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305383",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250317_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305451",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250320_20250327",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305534",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250324_20250531",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305607",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    },
+    {
+      "P_EMPRESA": "66",
+      "P_CONTR": "1",
+      "P_VERSION": "20250401_20250630",
+      "status": "pending",
+      "discovery_time": "2025-04-02T21:08:41.305675",
+      "gtfs_types": [
+        "STOPS",
+        "ROUTES",
+        "AGENCY",
+        "STOP_TIMES",
+        "TRIPS"
+      ]
+    }
+  ],
+  "total": 364,
+  "timestamp": "2025-04-02T21:08:41.305935",
+  "bucket": "mado-gtfs-dev-eu-west-1-992807582431-bronze",
+  "region": "eu-west-1"
+}
