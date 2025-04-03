@@ -29,6 +29,9 @@ Parameters:
     Type: String
     Description: ARN de la capa de Pandas de AWS
     Default: "arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1"
+  StateMachineArnParamName:
+    Type: String
+    Description: SSM Parameter name for state machine ARN
 
 Resources:
   # Función Lambda para preprocesamiento

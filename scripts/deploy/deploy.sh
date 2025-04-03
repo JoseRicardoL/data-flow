@@ -30,6 +30,18 @@ export ENV
 export S3_BUCKET
 export GLUE_SCRIPTS_PATH
 
+# Cargar y exportar variables de ARNs de capas desde layer_arns/<env>_layer_arns.env
+LAYER_ARNS_FILE="layer_arns/${ENV}_layer_arns.env"
+if [ -f "$LAYER_ARNS_FILE" ]; then
+    info_message "Cargando ARNs de las capas Lambda desde $LAYER_ARNS_FILE..."
+    export PRE_PROCESSOR_LAYER_ARN=$(grep PRE_PROCESSOR_LAYER_ARN "$LAYER_ARNS_FILE" | cut -d'=' -f2)
+    export PANDAS_LAYER_ARN=$(grep PANDAS_LAYER_ARN "$LAYER_ARNS_FILE" | cut -d'=' -f2)
+else
+    warning_message "No se encontró el archivo de ARNs de capas: $LAYER_ARNS_FILE"
+    export PRE_PROCESSOR_LAYER_ARN=""
+    export PANDAS_LAYER_ARN=""
+fi
+
 # Generar parámetros desde template
 section_header "PREPARANDO PARÁMETROS"
 info_message "Generando archivo de parámetros..."
@@ -46,21 +58,21 @@ if [ ! -f "cloudformation/parameters/${ENV}.json.template" ]; then
   "environment": "${ENV}",
   "region": "${REGION}",
   "bucket": "${S3_BUCKET}",
-  "artifactBucket": "${ARTIFACTORY_BUCKET:-${S3_BUCKET}}",
+  "artifactBucket": "${ARTIFACTORY_BUCKET}",
   "glueJobConfig": {
     "workerType": "G.1X",
     "numberOfWorkers": 2,
     "timeout": 2880
   },
   "vpcConfig": {
-    "vpcId": "${VPC_ID:-}",
-    "subnets": "${VPC_SUBNETS:-}",
-    "securityGroupId": "${SECURITY_GROUP_ID:-}",
-    "routeTableId": "${ROUTE_TABLE_ID:-}"
+    "vpcId": "${VPC_ID}",
+    "subnets": "${VPC_SUBNETS}",
+    "securityGroupId": "${SECURITY_GROUP_ID}",
+    "routeTableId": "${ROUTE_TABLE_ID}"
   },
   "layerArns": {
-    "preProcessor": "${PRE_PROCESSOR_LAYER_ARN:-}",
-    "pandasLayer": "${PANDAS_LAYER_ARN:-}"
+    "preProcessor": "${PRE_PROCESSOR_LAYER_ARN}",
+    "pandasLayer": "${PANDAS_LAYER_ARN}"
   },
   "concurrency": {
     "maxRuns": 25,
@@ -116,56 +128,31 @@ aws cloudformation package \
 
 show_result $? "Template empaquetado correctamente: ${PACKAGED_TEMPLATE}" "Error al empaquetar template"
 
-# Cargar los ARNs de las capas Lambda si existen
-LAYER_ARNS_FILE="layer_arns/${ENV}_layer_arns.env"
-if [ -f "$LAYER_ARNS_FILE" ]; then
-    info_message "Cargando ARNs de las capas Lambda..."
-    # Solo cargar PRE_PROCESSOR_LAYER_ARN y PANDAS_LAYER_ARN
-    PRE_PROCESSOR_LAYER_ARN=$(grep PRE_PROCESSOR_LAYER_ARN "$LAYER_ARNS_FILE" | cut -d'=' -f2)
-    PANDAS_LAYER_ARN=$(grep PANDAS_LAYER_ARN "$LAYER_ARNS_FILE" | cut -d'=' -f2)
-else
-    warning_message "No se encontró el archivo de ARNs de capas: $LAYER_ARNS_FILE"
-    PRE_PROCESSOR_LAYER_ARN=""
-    PANDAS_LAYER_ARN=""
-fi
-
 # Extraer parámetros del archivo JSON generado
 section_header "PREPARANDO PARÁMETROS PARA CLOUDFORMATION"
 info_message "Extrayendo parámetros para CloudFormation..."
 
-# Leer el archivo JSON de parámetros
 if [ ! -f "cloudformation/parameters/${ENV}.json" ]; then
     error_message "No se encontró el archivo de parámetros: cloudformation/parameters/${ENV}.json"
     finalize_script 1 "" "DESPLIEGUE FALLIDO"
     exit 1
 fi
 
-# Construir parámetros para CloudFormation
 PARAMS_FILE="cloudformation/parameters/${ENV}.json"
 CF_PARAMS=""
 
 if command -v jq >/dev/null 2>&1; then
-    # Método con jq (más robusto)
     info_message "Usando jq para procesar parámetros..."
-    
-    # Extraer parámetros básicos
     ENV_VALUE=$(jq -r ".environment // \"$ENV\"" $PARAMS_FILE)
     BUCKET_VALUE=$(jq -r ".bucket // \"$S3_BUCKET\"" $PARAMS_FILE)
     ARTIFACT_BUCKET=$(jq -r ".artifactBucket // \"${ARTIFACTORY_BUCKET:-$S3_BUCKET}\"" $PARAMS_FILE)
-    
-    # Extraer configuración Glue
     WORKER_TYPE=$(jq -r '.glueJobConfig.workerType // "G.1X"' $PARAMS_FILE)
     WORKERS=$(jq -r '.glueJobConfig.numberOfWorkers // 2' $PARAMS_FILE)
-    
-    # Extraer configuración de concurrencia
     MAX_RUNS=$(jq -r '.concurrency.maxRuns // 25' $PARAMS_FILE)
     MAX_SM=$(jq -r '.concurrency.maxStateMachines // 5' $PARAMS_FILE)
-    
-    # Capas Lambda - Solo PRE_PROCESSOR_LAYER_ARN y PANDAS_LAYER_ARN
     PRE_PROCESSOR_LAYER_ARN=$(jq -r '.layerArns.preProcessor // env.PRE_PROCESSOR_LAYER_ARN // ""' $PARAMS_FILE)
     PANDAS_LAYER_ARN=$(jq -r '.layerArns.pandasLayer // env.PANDAS_LAYER_ARN // ""' $PARAMS_FILE)
     
-    # Construir string de parámetros
     CF_PARAMS="S3Bucket=${BUCKET_VALUE} \
 S3BUCKETArtifactory=${ARTIFACT_BUCKET} \
 GlueJobName=${STACK_NAME} \
@@ -178,10 +165,7 @@ LambdaS3KeyPrefix=lambda \
 PreProcessorLayerArn=${PRE_PROCESSOR_LAYER_ARN} \
 PandasLayerArn=${PANDAS_LAYER_ARN}"
 else
-    # Método alternativo sin jq
     warning_message "jq no está instalado, usando método alternativo para parámetros..."
-    
-    # Si no está instalado jq, usar valores de variables de entorno
     CF_PARAMS="S3Bucket=${S3_BUCKET} \
 S3BUCKETArtifactory=${ARTIFACTORY_BUCKET:-$S3_BUCKET} \
 GlueJobName=${STACK_NAME} \
@@ -195,12 +179,9 @@ PreProcessorLayerArn=${PRE_PROCESSOR_LAYER_ARN:-} \
 PandasLayerArn=${PANDAS_LAYER_ARN:-}"
 fi
 
-# Desplegar el stack
 section_header "DESPLEGANDO STACK"
 info_message "Iniciando despliegue CloudFormation..."
 warning_message "Este proceso puede tomar varios minutos. Por favor, espere...\n"
-
-# Mostrar detalles de parámetros
 info_message "Parámetros a utilizar:"
 echo -e "${CYAN}${CF_PARAMS}${NC}"
 
@@ -214,16 +195,13 @@ aws cloudformation deploy \
 
 DEPLOY_RESULT=$?
 
-# Limpiar archivos temporales
 section_header "LIMPIEZA"
 info_message "Eliminando archivos temporales..."
 cleanup_temp_files "${PACKAGED_TEMPLATE}"
 
-# Mostrar outputs del stack si el despliegue fue exitoso
 if [ $DEPLOY_RESULT -eq 0 ]; then
     show_stack_outputs "$STACK_NAME" "$REGION"
 fi
 
-# Finalizar el script
 finalize_script $DEPLOY_RESULT "¡DESPLIEGUE COMPLETADO CON ÉXITO!" "ERROR EN EL DESPLIEGUE"
 exit $DEPLOY_RESULT

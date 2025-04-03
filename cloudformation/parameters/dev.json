@@ -15,12 +15,12 @@
 		"routeTableId": "rtb-0de786846b7f433d8"
 	},
 	"layerArns": {
-		"preProcessor": "${PRE_PROCESSOR_LAYER_ARN:-}",
-		"pandasLayer": "${PANDAS_LAYER_ARN:-arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1}"
-
+		"preProcessor": "arn:aws:lambda:eu-west-1:992807582431:layer:pre_processor-layer-dev:19",
+		"pandasLayer": "arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1"
 	},
 	"concurrency": {
 		"maxRuns": 25,
 		"maxStateMachines": 5
-	}
+	},
+	"stateMachineArnParamName": "/gtfs/dev/state-machine-arn"
 }

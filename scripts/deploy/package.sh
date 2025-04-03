@@ -26,12 +26,13 @@ info_message "Ambiente: ${ENV}"
 PROJECT_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 info_message "Directorio raíz del proyecto: ${PROJECT_ROOT}"
 
-# Definir directorios de las funciones Lambda
+# Definir directorios de las funciones Lambda (agregamos state_machine_updater)
 LAMBDA_DIRS=(
     "${PROJECT_ROOT}/scripts/lambda/pre_processor"
     "${PROJECT_ROOT}/scripts/lambda/check_capacity"
     "${PROJECT_ROOT}/scripts/lambda/release_capacity"
     "${PROJECT_ROOT}/scripts/lambda/trigger_next"
+    "${PROJECT_ROOT}/scripts/lambda/state_machine_updater"
 )
 
 # Definir nombres de archivos ZIP (mantener la misma estructura que las carpetas)
@@ -40,6 +41,7 @@ ZIP_NAMES=(
     "check_capacity.zip"
     "release_capacity.zip"
     "trigger_next.zip"
+    "state_machine_updater.zip"
 )
 
 # Crear directorio para archivos ZIP
@@ -50,7 +52,7 @@ info_message "Directorio de salida para archivos ZIP: ${LAMBDA_OUTPUT_DIR}"
 # Crear directorio para guardar ARNs de las capas
 mkdir -p "${PROJECT_ROOT}/layer_arns"
 LAYER_ARNS_FILE="${PROJECT_ROOT}/layer_arns/${ENV}_layer_arns.env"
->$LAYER_ARNS_FILE # Crear/vaciar archivo
+> "$LAYER_ARNS_FILE" # Crear/vaciar archivo
 
 # Asegurar que el número de elementos sea el mismo
 if [ ${#LAMBDA_DIRS[@]} -ne ${#ZIP_NAMES[@]} ]; then
@@ -63,7 +65,7 @@ for i in "${!LAMBDA_DIRS[@]}"; do
     LAMBDA_DIR="${LAMBDA_DIRS[$i]}"
     ZIP_NAME="${ZIP_NAMES[$i]}"
     OUTPUT_PATH="${LAMBDA_OUTPUT_DIR}/${ZIP_NAME}"
-    FUNCTION_NAME=$(basename ${LAMBDA_DIR})
+    FUNCTION_NAME=$(basename "${LAMBDA_DIR}")
 
     section_header "EMPAQUETANDO ${FUNCTION_NAME}"
     info_message "Función: ${LAMBDA_DIR}"
@@ -81,83 +83,81 @@ for i in "${!LAMBDA_DIRS[@]}"; do
         continue
     fi
 
-    # 1. CREAR CAPA LAMBDA PARA LA FUNCIÓN
+    # 1. CREAR CAPA LAMBDA PARA LA FUNCIÓN (si aplica)
     section_header "CREANDO CAPA PARA ${FUNCTION_NAME}"
 
     LAYER_NAME="${FUNCTION_NAME}-layer-${ENV}"
     LAYER_ZIP="${LAMBDA_OUTPUT_DIR}/${FUNCTION_NAME}_layer.zip"
 
-    # Determinar dependencias según la función - CORREGIDO para usar versiones disponibles
+    # Determinar dependencias según la función
     DEPENDENCIES=""
     case "${FUNCTION_NAME}" in
-    pre_processor)
-        # Usa pandas sin especificar versión exacta
-        DEPENDENCIES="psutil"
-        ;;
-    *)
-        DEPENDENCIES=""
-        ;;
+        pre_processor)
+            # En pre_processor se requieren dependencias (por ejemplo, psutil)
+            DEPENDENCIES="psutil"
+            ;;
+        *)
+            DEPENDENCIES=""
+            ;;
     esac
 
-    if [ -z "$DEPENDENCIES" ]; then
-        echo "No hay dependencias para ${FUNCTION_NAME}. Omitiendo creación de capa."
-        continue
-    fi
+    if [ -n "$DEPENDENCIES" ]; then
+        # Crear directorio temporal para la capa
+        LAYER_TEMP_DIR=$(mktemp -d)
+        mkdir -p "${LAYER_TEMP_DIR}/python"
 
-    # Crear directorio temporal para la capa
-    LAYER_TEMP_DIR=$(mktemp -d)
-    mkdir -p "${LAYER_TEMP_DIR}/python"
+        # Instalar dependencias en la capa
+        info_message "Instalando dependencias para capa: ${DEPENDENCIES}"
+        pip install ${DEPENDENCIES} -t "${LAYER_TEMP_DIR}/python" --prefer-binary
+        INSTALL_RESULT=$?
 
-    # Instalar dependencias en la capa - CORREGIDO para usar --prefer-binary
-    info_message "Instalando dependencias para capa: ${DEPENDENCIES}"
-    pip install ${DEPENDENCIES} -t "${LAYER_TEMP_DIR}/python" --prefer-binary
-    INSTALL_RESULT=$?
+        if [ $INSTALL_RESULT -eq 0 ]; then
+            # Comprimir capa
+            info_message "Creando archivo ZIP para capa..."
+            (cd "${LAYER_TEMP_DIR}" && zip -r "${LAYER_ZIP}" .)
+            LAYER_ZIP_RESULT=$?
 
-    if [ $INSTALL_RESULT -eq 0 ]; then
-        # Comprimir capa
-        info_message "Creando archivo ZIP para capa..."
-        (cd "${LAYER_TEMP_DIR}" && zip -r "${LAYER_ZIP}" .)
-        LAYER_ZIP_RESULT=$?
+            if [ $LAYER_ZIP_RESULT -eq 0 ]; then
+                # Subir capa a S3
+                info_message "Subiendo capa a S3..."
+                S3_LAYER_KEY="lambda_layers/${ENV}/${FUNCTION_NAME}_layer.zip"
+                aws s3 cp "${LAYER_ZIP}" "s3://${BUCKET}/${S3_LAYER_KEY}" --region "${REGION}"
 
-        if [ $LAYER_ZIP_RESULT -eq 0 ]; then
-            # Subir capa a S3
-            info_message "Subiendo capa a S3..."
-            S3_LAYER_KEY="lambda_layers/${ENV}/${FUNCTION_NAME}_layer.zip"
-            aws s3 cp "${LAYER_ZIP}" "s3://${BUCKET}/${S3_LAYER_KEY}" --region "${REGION}"
+                # Publicar capa Lambda
+                info_message "Publicando capa Lambda..."
+                LAYER_ARN=$(aws lambda publish-layer-version \
+                    --layer-name "${LAYER_NAME}" \
+                    --description "Dependencias para ${FUNCTION_NAME}" \
+                    --compatible-runtimes python3.11 \
+                    --content S3Bucket="${BUCKET}",S3Key="${S3_LAYER_KEY}" \
+                    --region "${REGION}" \
+                    --query 'LayerVersionArn' \
+                    --output text)
 
-            # Publicar capa Lambda
-            info_message "Publicando capa Lambda..."
-            LAYER_ARN=$(aws lambda publish-layer-version \
-                --layer-name "${LAYER_NAME}" \
-                --description "Dependencias para ${FUNCTION_NAME}" \
-                --compatible-runtimes python3.11 \
-                --content S3Bucket="${BUCKET}",S3Key="${S3_LAYER_KEY}" \
-                --region "${REGION}" \
-                --query 'LayerVersionArn' \
-                --output text)
+                # Guardar ARN en archivo
+                echo "${FUNCTION_NAME^^}_LAYER_ARN=${LAYER_ARN}" >> "$LAYER_ARNS_FILE"
 
-            # Guardar ARN en archivo
-            echo "${FUNCTION_NAME^^}_LAYER_ARN=${LAYER_ARN}" >>$LAYER_ARNS_FILE
+                # Para pre_processor, agregar también el ARN fijo de pandas (si es necesario)
+                if [ "${FUNCTION_NAME}" == "pre_processor" ]; then
+                    echo "PANDAS_LAYER_ARN=arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1" >> "$LAYER_ARNS_FILE"
+                fi
 
-            if [ "${FUNCTION_NAME}" == "pre_processor" ]; then
-                echo "PANDAS_LAYER_ARN=arn:aws:lambda:eu-west-1:336392948345:layer:AWSLambda-Python311-SciPy1x:1" >>$LAYER_ARNS_FILE
+                success_message "Capa para ${FUNCTION_NAME} publicada: ${LAYER_ARN}"
+            else
+                error_message "Error al crear archivo ZIP para capa"
             fi
-
-            success_message "Capa para ${FUNCTION_NAME} publicada: ${LAYER_ARN}"
         else
-            error_message "Error al crear archivo ZIP para capa"
+            error_message "Error al instalar dependencias para la capa"
         fi
+
+        # Limpiar directorio temporal de la capa
+        rm -rf "${LAYER_TEMP_DIR}"
     else
-        error_message "Error al instalar dependencias para la capa"
+        info_message "No hay dependencias para ${FUNCTION_NAME}. Omitiendo creación de capa."
     fi
 
-    # Limpiar directorio temporal de la capa
-    rm -rf "${LAYER_TEMP_DIR}"
-
-    # 2. EMPAQUETAR FUNCIÓN LAMBDA (LIGERA, SIN DEPENDENCIAS)
+    # 2. EMPAQUETAR FUNCIÓN LAMBDA (código sin dependencias)
     section_header "EMPAQUETANDO FUNCIÓN ${FUNCTION_NAME}"
-
-    # Crear ZIP directamente con solo el código (sin dependencias)
     info_message "Creando archivo ZIP ligero..."
     (cd "${LAMBDA_DIR}" && zip -r "${OUTPUT_PATH}" .)
     ZIP_RESULT=$?
@@ -165,7 +165,7 @@ for i in "${!LAMBDA_DIRS[@]}"; do
     if [ $ZIP_RESULT -eq 0 ]; then
         # Subir archivo ZIP a S3
         info_message "Subiendo archivo ZIP a S3..."
-        aws s3 cp "${OUTPUT_PATH}" "s3://${BUCKET}/lambda/${ZIP_NAME}" --region ${REGION}
+        aws s3 cp "${OUTPUT_PATH}" "s3://${BUCKET}/lambda/${ZIP_NAME}" --region "${REGION}"
         S3_RESULT=$?
 
         show_result $S3_RESULT "Archivo ZIP subido a s3://${BUCKET}/lambda/${ZIP_NAME}" "Error al subir archivo ZIP"
@@ -173,7 +173,7 @@ for i in "${!LAMBDA_DIRS[@]}"; do
         error_message "Error al crear archivo ZIP"
     fi
 
-    info_message "Limpieza completa"
+    info_message "Limpieza completa para ${FUNCTION_NAME}"
 done
 
 success_message "Empaquetado completado. ARNs de capas guardados en: ${LAYER_ARNS_FILE}"
